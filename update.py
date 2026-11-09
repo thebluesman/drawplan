@@ -15,6 +15,7 @@ import os
 import shutil
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 import zipfile
 
@@ -46,13 +47,27 @@ def current_version():
         return None
 
 
+def fetch(url, headers=None, timeout=60):
+    """GET a URL. Falls back to the system's curl when Python can't verify HTTPS certificates,
+    which is common with Python from python.org on a Mac ("Install Certificates" never run)."""
+    headers = {**UA, **(headers or {})}
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=timeout) as r:
+            return r.read()
+    except urllib.error.URLError as e:
+        if "CERTIFICATE" not in str(e).upper() or not shutil.which("curl"):
+            raise
+    args = ["curl", "-fsSL", "--max-time", str(timeout)]
+    for k, v in headers.items():
+        args += ["-H", f"{k}: {v}"]
+    r = subprocess.run(args + [url], capture_output=True)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr.decode(errors="replace").strip() or "download failed")
+    return r.stdout
+
+
 def latest_version():
-    req = urllib.request.Request(
-        f"https://api.github.com/repos/{REPO}/commits/{BRANCH}",
-        headers={**UA, "Accept": "application/vnd.github.sha"},
-    )
-    with urllib.request.urlopen(req, timeout=15) as r:
-        return r.read().decode().strip()
+    return fetch(f"https://api.github.com/repos/{REPO}/commits/{BRANCH}", {"Accept": "application/vnd.github.sha"}, 15).decode().strip()
 
 
 def check():
@@ -73,9 +88,7 @@ def apply():
         return {"files": files, "version": after}
 
     sha = latest_version()
-    req = urllib.request.Request(f"https://github.com/{REPO}/archive/{sha}.zip", headers=UA)
-    with urllib.request.urlopen(req, timeout=120) as r:
-        blob = r.read()  # download everything before touching any file
+    blob = fetch(f"https://github.com/{REPO}/archive/{sha}.zip", timeout=120)  # download everything before touching any file
     z = zipfile.ZipFile(io.BytesIO(blob))
     prefix = z.namelist()[0].split("/")[0] + "/"  # GitHub wraps everything in "drawplan-<sha>/"
     changed = []
