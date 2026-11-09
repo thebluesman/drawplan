@@ -42,6 +42,7 @@ IMAGE_TYPES = {
 SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]+$")
 
 _lock = threading.Lock()
+RESTART_ARGV = None  # how to start this server again after an update (set in main)
 
 
 def set_data_dir(path):
@@ -159,6 +160,13 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.error_json(HTTPStatus.INTERNAL_SERVER_ERROR, f"Could not read progress: {e}")
         if path.startswith("/uploads/"):
             return self.serve_upload(unquote(path[len("/uploads/"):]))
+        if path == "/api/update":
+            import update
+
+            try:
+                return self.send_json(update.check())
+            except Exception as e:
+                return self.error_json(HTTPStatus.BAD_GATEWAY, f"Couldn't reach GitHub: {e}")
         return super().do_GET()
 
     def do_PUT(self):
@@ -185,6 +193,8 @@ class Handler(SimpleHTTPRequestHandler):
         if path == "/api/progress":
             # navigator.sendBeacon (used when the tab closes) can only POST.
             return self.do_PUT()
+        if path == "/api/update":
+            return self.run_update()
         if path != "/api/uploads":
             return self.error_json(HTTPStatus.NOT_FOUND, "Not found")
         if not self.same_origin():
@@ -221,6 +231,25 @@ class Handler(SimpleHTTPRequestHandler):
             os.makedirs(trash, exist_ok=True)
             os.replace(target, os.path.join(trash, name))
         return self.send_json({"ok": True})
+
+    def run_update(self):
+        """Install the latest version from GitHub, then restart so a new server.py takes effect."""
+        # A JSON content type can't be sent cross-site without a CORS preflight, which this server never grants.
+        if not self.same_origin() or not (self.headers.get("Content-Type") or "").startswith("application/json"):
+            return self.error_json(HTTPStatus.FORBIDDEN, "Cross-origin write refused")
+        import update
+
+        try:
+            res = update.apply()
+        except Exception as e:
+            return self.error_json(HTTPStatus.BAD_GATEWAY, f"Couldn't update: {e}")
+        needs_restart = any(f.endswith(".py") for f in res["files"])
+        can_restart = needs_restart and os.name == "posix" and RESTART_ARGV is not None
+        self.send_json({"ok": True, "files": len(res["files"]), "restarting": can_restart, "restartManually": needs_restart and not can_restart})
+        if can_restart:
+            print("Updated. Restarting…")
+            # Replace this process with a fresh server on the same port, after the response has gone out.
+            threading.Timer(0.5, lambda: os.execv(sys.executable, RESTART_ARGV)).start()
 
     def serve_upload(self, name):
         if not SAFE_NAME.match(name):
@@ -285,6 +314,8 @@ def main():
     if httpd is None:
         print(f"Ports {args.port}-{args.port + 9} are all busy. Try: python3 server.py --port 5900")
         return
+    global RESTART_ARGV
+    RESTART_ARGV = [sys.executable, os.path.abspath(__file__), "--port", str(port), "--no-browser"] + (["--demo"] if args.demo else [])
     url = f"http://127.0.0.1:{port}"
     print(f"Sketchbook Academy{' (DEMO DATA)' if args.demo else ''} is running at {url}")
     print("Keep this window open while you use the app. Press Ctrl+C to stop.")

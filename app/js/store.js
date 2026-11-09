@@ -7,6 +7,7 @@ const EMPTY = () => ({
   settings: { name: "", startDate: today(), anime: true, theme: "auto" },
   weeks: {},
   sessions: [],
+  rest: [], // dates (YYYY-MM-DD) marked as a planned day off
   uploads: [],
   portfolio: {},
   worksheets: [],
@@ -40,6 +41,7 @@ export async function load() {
   const base = EMPTY();
   state = { ...base, ...progress, settings: { ...base.settings, ...(progress.settings || {}) } };
   state.videos = state.videos || {};
+  state.rest = state.rest || [];
   state._rev = progress._rev || 0; // the revision this copy is based on; sent with every save
 }
 
@@ -169,6 +171,24 @@ export function stagePct(st) {
 }
 export function overallPct() {
   return Math.round(course.weeks.reduce((a, w) => a + weekPct(w), 0) / course.weeks.length);
+}
+
+// ---------- session plans ----------
+/** The daily blocks for a session plan ("full", "short", "quick"), with that plan's minutes. */
+export function planBlocks(planId = "full") {
+  const plans = course.cur.sessionPlans || [];
+  const plan = plans.find((p) => p.id === planId) || plans[0];
+  if (!plan) return course.cur.dailyBlocks;
+  return course.cur.dailyBlocks.filter((b) => plan.minutes[b.id]).map((b) => ({ ...b, minutes: plan.minutes[b.id] }));
+}
+export const planMinutes = (planId) => planBlocks(planId).reduce((a, b) => a + b.minutes, 0);
+
+// ---------- rest days ----------
+export const isRest = (date = today()) => state.rest.includes(date);
+export function setRest(on, date = today()) {
+  state.rest = state.rest.filter((d) => d !== date);
+  if (on) state.rest.push(date);
+  save();
 }
 
 // ---------- practice stats ----------

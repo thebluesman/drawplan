@@ -1,0 +1,1826 @@
+{
+ "title": "Sketchbook Academy",
+ "subtitle": "Drawing for Animation — a 12-month pencil course",
+ "hoursPerDay": 3,
+ "daysPerWeek": 5,
+ "dailyBlocks": [
+  {
+   "id": "warmup",
+   "label": "Warm-up",
+   "minutes": 20
+  },
+  {
+   "id": "gesture",
+   "label": "Gesture",
+   "minutes": 35
+  },
+  {
+   "id": "study",
+   "label": "Main study",
+   "minutes": 95
+  },
+  {
+   "id": "sketchbook",
+   "label": "Sketchbook from life",
+   "minutes": 30
+  }
+ ],
+ "sessionPlans": [
+  {
+   "id": "full",
+   "label": "Full session",
+   "desc": "The whole routine.",
+   "minutes": {
+    "warmup": 20,
+    "gesture": 35,
+    "study": 95,
+    "sketchbook": 30
+   }
+  },
+  {
+   "id": "short",
+   "label": "Short session",
+   "desc": "A busy day. Warm up, a few gestures, a little of the main study.",
+   "minutes": {
+    "warmup": 10,
+    "gesture": 20,
+    "study": 30
+   }
+  },
+  {
+   "id": "quick",
+   "label": "Just a sketch",
+   "desc": "A really full day. Twenty minutes keeps your hand moving.",
+   "minutes": {
+    "gesture": 10,
+    "sketchbook": 10
+   }
+  }
+ ],
+ "benchmark": {
+  "title": "Benchmark drawings",
+  "intro": "The same four drawings, repeated at the end of every stage. Don't look at your old ones until you've finished the new set — then compare them side by side in the Gallery.",
+  "items": [
+   {
+    "id": "figure",
+    "label": "A figure in an action pose (jumping, throwing, running) — from imagination, 10 min",
+    "short": "Action figure"
+   },
+   {
+    "id": "room",
+    "label": "The room you're in, in perspective — from life, 20 min",
+    "short": "Room in perspective"
+   },
+   {
+    "id": "head",
+    "label": "A character's head in 3/4 view, showing three different expressions — 15 min",
+    "short": "Head, 3 expressions"
+   },
+   {
+    "id": "animal",
+    "label": "An animal from a photo (a cat, dog or horse) — 10 min",
+    "short": "Animal"
+   }
+  ]
+ },
+ "stages": [
+  {
+   "id": "s1",
+   "n": 1,
+   "title": "Lines, Forms & Seeing",
+   "months": "Months 1–2",
+   "tagline": "Train your hand to make confident marks and your eye to see simple forms in everything.",
+   "why": "Every drawing in animation is built from simple forms drawn with confident lines. Your drawings aren't supposed to look good yet — they're supposed to teach you how to see.",
+   "focus": [
+    "Line control: straight lines, arcs, ellipses",
+    "The five basic forms: sphere, cube, cylinder, cone, pyramid",
+    "Observation and proportion",
+    "Gesture: the line of action"
+   ],
+   "ignore": [
+    "Style",
+    "Shading detail",
+    "Making things \"pretty\"",
+    "Comparing yourself to others"
+   ],
+   "roadmap": "Roadmap months 1–2: Learn to see + basic forms",
+   "daily": {
+    "warmup": "Line drills: one page of straight lines, arcs and ellipses. Ghost each stroke (practise the motion above the paper) before you commit.",
+    "gesture": "Line of Action → Figure drawing. 10 × 30 sec, 10 × 1 min, 5 × 2 min. Start every pose with its line of action.",
+    "sketchbook": "Draw 3 objects around you from life. Break each one into basic forms first."
+   },
+   "weeks": [
+    {
+     "id": "w01",
+     "n": 1,
+     "title": "Orientation & your baseline",
+     "goal": "Set up your space, learn how the year works, and record where you're starting from.",
+     "videos": [
+      {
+       "id": "1jjmOF1hQqI",
+       "note": "The big picture of learning to draw"
+      },
+      {
+       "id": "tx5kJvI14Jg"
+      },
+      {
+       "id": "f312sDwg770",
+       "note": "Peter Han, week 1 — lines, arcs, ellipses and warm-ups"
+      },
+      {
+       "id": "zHIsVVTIBoI",
+       "optional": true,
+       "note": "Which pencils to use"
+      }
+     ],
+     "study": [
+      "Do the four benchmark drawings (below) first — before watching anything. Upload them.",
+      "Peter Han's line exercises: 2 pages of straight lines connecting two dots, 1 page of arcs, 1 page of ellipses.",
+      "Draw from the shoulder, not the wrist, for long lines. Fast and confident beats slow and wobbly."
+     ],
+     "assignment": {
+      "title": "Baseline benchmark + 1 page of line drills",
+      "desc": "Upload your 4 benchmark drawings and your best line-drill page."
+     },
+     "benchmark": true
+    },
+    {
+     "id": "w02",
+     "n": 2,
+     "title": "Confident lines",
+     "goal": "Make lines that taper, flow and mean something.",
+     "videos": [
+      {
+       "id": "xZYpXKqY4iA"
+      },
+      {
+       "id": "mysAqNK6CHI"
+      },
+      {
+       "id": "lTslVOUJ0jI"
+      },
+      {
+       "id": "74HR59yFZ7Y",
+       "note": "Your first gesture lesson — this powers the daily gesture block"
+      }
+     ],
+     "study": [
+      "Tapered strokes: fill 2 pages with C- and S-curves that are thin–thick–thin.",
+      "Ellipses: draw 10 boxes freehand and fit an ellipse inside each face.",
+      "Copy 5 of the line types from the video onto a single object (e.g. a shoe) to see how line changes the read."
+     ],
+     "assignment": {
+      "title": "Best page of tapered curves + ellipses",
+      "desc": "Upload one page you're proud of."
+     }
+    },
+    {
+     "id": "w03",
+     "n": 3,
+     "title": "The five basic forms",
+     "goal": "Draw spheres, cubes, cylinders, cones and pyramids until you can do them in your sleep.",
+     "videos": [
+      {
+       "id": "0oFpESh9ANI",
+       "note": "Peter Han, week 2 — organic forms and contour lines"
+      },
+      {
+       "id": "h9qGMVRdn4Q"
+      },
+      {
+       "id": "oUIkswy_sXo"
+      }
+     ],
+     "study": [
+      "Roadmap practice page: fill a page with the five basic forms, at different angles.",
+      "Organic forms: stretch and squash an ellipse into 20 bean/blob shapes, then add contour lines wrapping around each one so it looks 3D.",
+      "Every form gets a centre line. Notice how it tells you which way the form is facing."
+     ],
+     "assignment": {
+      "title": "Forms page + organic forms page",
+      "desc": "Upload both pages."
+     }
+    },
+    {
+     "id": "w04",
+     "n": 4,
+     "title": "Forms in perspective & cast shadows",
+     "goal": "Place forms in simple perspective and light them from one direction.",
+     "videos": [
+      {
+       "id": "5r5AUbde5Tw",
+       "note": "Peter Han, week 3 — geometric forms, 1- & 2-point perspective, form and cast shadows"
+      },
+      {
+       "id": "PdtDtGBu-Dc"
+      }
+     ],
+     "study": [
+      "Peter Han's homework: 2 pages of 1- and 2-point perspective boxes.",
+      "2 pages of organic and geometric forms with a single light source: form shadow + cast shadow. The darkest point is where the object touches the ground.",
+      "Draw a cylinder lying down, standing up and tilted. Check: are the ellipses getting rounder as they move away from eye level?"
+     ],
+     "assignment": {
+      "title": "Boxes in perspective + lit forms",
+      "desc": "Upload one perspective page and one shadow page."
+     }
+    },
+    {
+     "id": "w05",
+     "n": 5,
+     "title": "Seeing: observation & proportion",
+     "goal": "Draw what's really there — measure, compare, simplify.",
+     "videos": [
+      {
+       "id": "gKijkM15Fso"
+      },
+      {
+       "id": "dZabW9rotEQ"
+      },
+      {
+       "id": "1J7RQvKnWf4"
+      },
+      {
+       "id": "tZtnKp4fAPk",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Pick 3 kitchen objects (mug, kettle, bottle). For each: first a 2-minute forms-only breakdown, then a 15-minute careful drawing.",
+      "Measure with your pencil at arm's length: how many heads tall is the bottle compared with the mug?",
+      "Draw your own hand (relaxed) 5 times, once a day. Just shapes and proportions."
+     ],
+     "assignment": {
+      "title": "Object breakdown page",
+      "desc": "Upload the 3 objects, with forms breakdown next to each final drawing."
+     }
+    },
+    {
+     "id": "w06",
+     "n": 6,
+     "title": "Seeing like an animator",
+     "goal": "Understand why animators care about the line of action, arcs and appeal — the reason behind everything in this course.",
+     "videos": [
+      {
+       "id": "uDqjIdI4bF4",
+       "note": "Watch for understanding — you don't need to animate yet"
+      },
+      {
+       "id": "6mrhW6REKNQ"
+      },
+      {
+       "id": "8j39NqwL7s4"
+      }
+     ],
+     "study": [
+      "Collect 20 photos of people doing things (sports, dance). Draw just the line of action for each: one curved line.",
+      "Turn 10 of those lines into 2-minute gestures.",
+      "Pick 3 principles from Alan Becker's series (e.g. arcs, squash & stretch, exaggeration) and sketch a tiny example of each — like a ball squashing as it lands."
+     ],
+     "assignment": {
+      "title": "Line-of-action page",
+      "desc": "Upload a page of 20 lines of action, and your best 2-minute gestures."
+     }
+    },
+    {
+     "id": "w07",
+     "n": 7,
+     "title": "Simplify & stay loose",
+     "goal": "Simplify what you see into big shapes, and sketch with energy instead of stiffness.",
+     "videos": [
+      {
+       "id": "X2yunBkdQfE"
+      },
+      {
+       "id": "6mUELtAliPU"
+      },
+      {
+       "id": "2jBbTweQuaU"
+      },
+      {
+       "id": "zwLWn7e6Z9Y"
+      }
+     ],
+     "study": [
+      "Go somewhere public (café, park, station). Spend one session drawing people in 30-second to 2-minute sketches. They will move — that's the point.",
+      "Simplify 5 complex objects (a bike, a plant, a chair) into 3–5 big shapes each.",
+      "One page drawn with the pencil held far back from the tip, to force loose marks."
+     ],
+     "assignment": {
+      "title": "On-location sketch page",
+      "desc": "Upload one page drawn out in the world."
+     }
+    },
+    {
+     "id": "w08",
+     "n": 8,
+     "title": "Review & Stage 1 benchmark",
+     "goal": "Look back, fill gaps, and record your progress.",
+     "videos": [
+      {
+       "id": "NSvGEpAUO4c"
+      },
+      {
+       "id": "6XyHnrnJ1DY",
+       "note": "Ideas for structuring your practice"
+      }
+     ],
+     "study": [
+      "Redo the four benchmark drawings — without looking at week 1's first.",
+      "Then compare them in the Gallery. Write 3 things that improved and 1 to work on.",
+      "Spend the rest of the week on whichever of weeks 1–7 felt weakest."
+     ],
+     "assignment": {
+      "title": "Stage 1 benchmark",
+      "desc": "Upload the 4 benchmark drawings."
+     },
+     "benchmark": true
+    }
+   ]
+  },
+  {
+   "id": "s2",
+   "n": 2,
+   "title": "Light, Value & the Body",
+   "months": "Months 3–4",
+   "tagline": "Learn how light reveals form — and build the human body from simple shapes.",
+   "why": "Value is what makes a drawing read clearly from across a room — or on a screen for half a second. And the body built from simple shapes is the foundation of every animated character.",
+   "focus": [
+    "The 5 parts of light: highlight, midtone, core shadow, reflected light, cast shadow",
+    "Value scales",
+    "Gesture → bean → mannequin",
+    "Proportions"
+   ],
+   "ignore": [
+    "Detailed anatomy and muscle names",
+    "Smooth, polished rendering",
+    "Faces and hands (they're coming in Stage 3)"
+   ],
+   "roadmap": "Roadmap months 3–4: Value (watercolor parts removed)",
+   "daily": {
+    "warmup": "Half a page of lines and ellipses, then one row of boxes and cylinders at different angles.",
+    "gesture": "Line of Action → Figures. 10 × 1 min, 5 × 2 min, 2 × 5 min. From week 11, add the bean to every 2-minute pose.",
+    "sketchbook": "Draw people in public places. Quick, unfinished, and lots of them."
+   },
+   "weeks": [
+    {
+     "id": "w09",
+     "n": 9,
+     "title": "Value: seeing light and dark",
+     "goal": "Learn the 5 parts of light and train your eye to judge value.",
+     "videos": [
+      {
+       "id": "a0uaqmY04OI"
+      },
+      {
+       "id": "RFQtsXktc9g"
+      },
+      {
+       "id": "8SZONs9hiRc"
+      }
+     ],
+     "study": [
+      "Roadmap practice: a 5-step value scale (easy), then a 9-step scale (challenging). Squint to check the steps are even.",
+      "Shade a sphere, cube and cylinder showing all 5 parts of light: highlight, midtone, core shadow, reflected light, cast shadow.",
+      "Put a white mug under a desk lamp and draw it with 3 values only."
+     ],
+     "assignment": {
+      "title": "Value scales + shaded forms",
+      "desc": "Upload your 5- and 9-step scales and the shaded forms."
+     }
+    },
+    {
+     "id": "w10",
+     "n": 10,
+     "title": "Shading techniques",
+     "goal": "Get comfortable with hatching, cross-hatching and building value with pencil.",
+     "videos": [
+      {
+       "id": "-dqGkHWC5IU"
+      },
+      {
+       "id": "t1Oy4EYjlT8"
+      },
+      {
+       "id": "aR5jxvSQ14Q"
+      },
+      {
+       "id": "LrLqAh0bPOQ",
+       "note": "Peter Han, week 4 part 1"
+      },
+      {
+       "id": "shybtm7eRe4",
+       "note": "Peter Han, week 4 part 2",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Make a 5-step value scale three ways: hatching, cross-hatching, and smooth tone.",
+      "Still life: 3 objects on a table, one lamp. Spend 2 sessions on one finished drawing with full value.",
+      "Hatching lines should follow the form (wrap around a cylinder), not just go diagonally across everything."
+     ],
+     "assignment": {
+      "title": "Still life with full value",
+      "desc": "Upload your finished still life."
+     }
+    },
+    {
+     "id": "w11",
+     "n": 11,
+     "title": "The bean: the torso in motion",
+     "goal": "Capture tilt, twist and squash in the torso with one simple shape.",
+     "videos": [
+      {
+       "id": "0660Fuih7qo"
+      },
+      {
+       "id": "irWRFOI7IV8"
+      },
+      {
+       "id": "9m4Hf_6U4Rc"
+      }
+     ],
+     "study": [
+      "30 beans from photos: 10 bending forward/back, 10 tilting sideways, 10 twisting.",
+      "Draw a bean doing the same action exaggerated, like an animator would: squashed tight, then stretched out.",
+      "Add a bean to every 2-minute gesture this week."
+     ],
+     "assignment": {
+      "title": "Bean page",
+      "desc": "Upload 30 beans on a page or two."
+     }
+    },
+    {
+     "id": "w12",
+     "n": 12,
+     "title": "Structure: making the body 3D",
+     "goal": "Turn the flat gesture into boxes and forms that exist in space.",
+     "videos": [
+      {
+       "id": "3uEtdDvK6Xo"
+      },
+      {
+       "id": "yqxPHew5bGQ"
+      },
+      {
+       "id": "PGgo0EE8ats"
+      },
+      {
+       "id": "Qwt_wggUFHg"
+      }
+     ],
+     "study": [
+      "Robo bean: 20 torsos drawn as two boxes, from photos at different angles.",
+      "Find the landmarks (pit of the neck, ribcage, hip bones, knees) on 10 photos — mark them with small x's.",
+      "Draw a robo bean from imagination turning in 4 steps, like frames of a slow turn."
+     ],
+     "assignment": {
+      "title": "Robo bean turn",
+      "desc": "Upload your 4-step turn and best robo bean page."
+     }
+    },
+    {
+     "id": "w13",
+     "n": 13,
+     "title": "The mannequin",
+     "goal": "Build a full figure from simple forms that you can pose any way.",
+     "videos": [
+      {
+       "id": "nRHfcqjbPq8"
+      },
+      {
+       "id": "EkfE2CJKHrA"
+      },
+      {
+       "id": "zv6UU2kq5Dg"
+      },
+      {
+       "id": "3pmaUaMj0b8",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Every pose: gesture first (1 min), then build the mannequin on top (5–10 min).",
+      "10 mannequins from photos this week.",
+      "Then 5 mannequins from imagination: walking, sitting, reaching, kneeling, jumping."
+     ],
+     "assignment": {
+      "title": "Mannequin page",
+      "desc": "Upload photo-based and imagination mannequins."
+     }
+    },
+    {
+     "id": "w14",
+     "n": 14,
+     "title": "Proportions & balance",
+     "goal": "Make figures that are the right size and stand convincingly.",
+     "videos": [
+      {
+       "id": "OyWHmxFGVK4"
+      },
+      {
+       "id": "_JHt6lOGfRs"
+      },
+      {
+       "id": "lCaf9RHEfpc"
+      },
+      {
+       "id": "uJMoplyGboI",
+       "optional": true
+      },
+      {
+       "id": "AHdAkO0W9J0",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Draw a standing figure 8 heads tall, front and side. Memorise where the crotch, knees and elbows land.",
+      "Draw the same character at 3 proportions: realistic (8 heads), heroic (9), cartoony (3–4). This is a key animation skill.",
+      "For 10 poses, draw a line from the pit of the neck straight down. Is the weight over the feet?"
+     ],
+     "assignment": {
+      "title": "Proportion sheet",
+      "desc": "Upload your 3-proportion character comparison."
+     }
+    },
+    {
+     "id": "w15",
+     "n": 15,
+     "title": "Light on the figure",
+     "goal": "Bring value and the mannequin together.",
+     "videos": [
+      {
+       "id": "Gi4g367PQow"
+      },
+      {
+       "id": "MyrySvbuhsk"
+      },
+      {
+       "id": "LrHfrncvODQ"
+      },
+      {
+       "id": "a40b54oZ3NQ",
+       "note": "Peter Han, week 5"
+      }
+     ],
+     "study": [
+      "5 mannequins lit from one strong direction. Just 2 values: light and shadow.",
+      "Rapid value sketches: 10 figure photos in 5 minutes each, using 3 values.",
+      "Write down the 5 shading mistakes from Proko's video and check your week 10 still life for them."
+     ],
+     "assignment": {
+      "title": "Lit mannequins",
+      "desc": "Upload your lit mannequins page."
+     }
+    },
+    {
+     "id": "w16",
+     "n": 16,
+     "title": "Review & Stage 2 benchmark",
+     "goal": "Look back, fill gaps, and record your progress.",
+     "videos": [
+      {
+       "id": "7An0jukOkCI",
+       "note": "Solid drawing — why all this construction matters for animation"
+      },
+      {
+       "id": "9zE8DqH6Gx4"
+      },
+      {
+       "id": "CdWCpN3mhT0",
+       "optional": true
+      },
+      {
+       "id": "lVxvFTYz210",
+       "optional": true,
+       "note": "Watching critiques trains your eye"
+      }
+     ],
+     "study": [
+      "Redo the four benchmark drawings, then compare with weeks 1 and 8.",
+      "Post 3–5 pieces to a critique community (r/learnart, r/ArtCrit) or show someone you trust.",
+      "Spend the rest of the week on whichever topic was hardest."
+     ],
+     "assignment": {
+      "title": "Stage 2 benchmark",
+      "desc": "Upload the 4 benchmark drawings."
+     },
+     "benchmark": true
+    }
+   ]
+  },
+  {
+   "id": "s3",
+   "n": 3,
+   "title": "Perspective, Heads, Hands & Feet",
+   "months": "Months 5–6",
+   "tagline": "Put the world and your characters into real space — and tackle the hardest parts of the body.",
+   "why": "Animation is drawn from every angle. Perspective lets you build believable backgrounds and turn characters freely, and heads and hands carry most of a character's acting.",
+   "focus": [
+    "1-, 2- and 3-point perspective",
+    "Foreshortening",
+    "Heads with the Loomis method",
+    "Hands and feet as simple shapes",
+    "Animals (begins week 23)"
+   ],
+   "ignore": [
+    "Perfect rulers-and-lines technical drawing",
+    "Every bone and muscle",
+    "Rendering finished portraits"
+   ],
+   "roadmap": "Replaces roadmap months 5–6 (color & watercolor) with perspective",
+   "daily": {
+    "warmup": "10 boxes in 2-point perspective + a page of ellipses in perspective.",
+    "gesture": "Line of Action → Figures (3 days) and Hands & feet / Faces (2 days). 10 × 1 min, 5 × 2 min.",
+    "sketchbook": "Draw a corner of a room or street in perspective. Find the horizon line first."
+   },
+   "weeks": [
+    {
+     "id": "w17",
+     "n": 17,
+     "title": "1- and 2-point perspective",
+     "goal": "Understand the horizon line and vanishing points, and use them on real spaces.",
+     "videos": [
+      {
+       "id": "BYlW8XC0MlI"
+      },
+      {
+       "id": "9-Y4K4hqZwo"
+      },
+      {
+       "id": "LXjSduaOXEk"
+      },
+      {
+       "id": "rFFX4R0lyv4"
+      }
+     ],
+     "study": [
+      "Your room in 1-point perspective (standing in the doorway, looking in).",
+      "A street or building in 2-point perspective, from life or a photo.",
+      "Draw 20 boxes above, on and below the horizon line in one drawing. Add a person standing next to some for scale."
+     ],
+     "assignment": {
+      "title": "Room (1-pt) + street (2-pt)",
+      "desc": "Upload both drawings."
+     }
+    },
+    {
+     "id": "w18",
+     "n": 18,
+     "title": "3-point perspective & thinking in X-ray",
+     "goal": "Draw dramatic up/down views, and draw through objects to get them right.",
+     "videos": [
+      {
+       "id": "QonjtiJdk7w"
+      },
+      {
+       "id": "50XAa3AOihc"
+      },
+      {
+       "id": "ZMuoU_NWmlE"
+      },
+      {
+       "id": "2FyhD5Xuqro",
+       "optional": true
+      },
+      {
+       "id": "IrPvrim91Vo",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Draw a tall building looking up (worm's-eye) and looking down from above (bird's-eye).",
+      "X-ray drawing: draw 10 objects (chair, table, box, car) with their hidden back edges showing.",
+      "Draw a simple scene — a table with objects on it — from 3 different camera heights."
+     ],
+     "assignment": {
+      "title": "Worm's-eye + bird's-eye views",
+      "desc": "Upload both views."
+     }
+    },
+    {
+     "id": "w19",
+     "n": 19,
+     "title": "Foreshortening",
+     "goal": "Make arms, legs and bodies come towards the viewer convincingly.",
+     "videos": [
+      {
+       "id": "G9ufRhWNeB8"
+      },
+      {
+       "id": "r0VInG0fgpo"
+      },
+      {
+       "id": "FyZYTVn0zYU"
+      },
+      {
+       "id": "FdDGB3J85Kg",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Draw a cylinder (an arm) pointing at you in 5 stages, from side-on to straight-on.",
+      "10 foreshortened poses from photos: punches, pointing, reaching towards the camera. Use the coil technique.",
+      "Use overlap: the closer form always overlaps the further one."
+     ],
+     "assignment": {
+      "title": "Foreshortened figures",
+      "desc": "Upload your best foreshortened poses."
+     }
+    },
+    {
+     "id": "w20",
+     "n": 20,
+     "title": "The head",
+     "goal": "Construct a head from any angle with the Loomis method.",
+     "videos": [
+      {
+       "id": "1EPNYWeEf1U"
+      },
+      {
+       "id": "z4ZLkyTuX_w"
+      },
+      {
+       "id": "yS6R2l8t8wo"
+      },
+      {
+       "id": "PgK90TpV5fA"
+      },
+      {
+       "id": "wAOldLWIDSM"
+      },
+      {
+       "id": "A6KMT4Potss"
+      }
+     ],
+     "study": [
+      "20 Loomis heads (ball + cut-off sides + jaw), turning and tilting in every direction.",
+      "10 heads from photos at odd angles (looking up, down, over the shoulder) using the Loomis construction.",
+      "Every day, add 10 Loomis heads to your warm-up."
+     ],
+     "assignment": {
+      "title": "Loomis head page",
+      "desc": "Upload a page of heads at many angles."
+     }
+    },
+    {
+     "id": "w21",
+     "n": 21,
+     "title": "Heads in 3D & face placement",
+     "goal": "Place the features correctly on a head that's turning.",
+     "videos": [
+      {
+       "id": "JC2ZppKHCqU"
+      },
+      {
+       "id": "Uf6mtrcUj_U"
+      },
+      {
+       "id": "HleWk-vemLs"
+      },
+      {
+       "id": "P9LOUHmPhS8",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Draw the same head in 8 views: front, 3/4, side, back, up, down, and two tilted angles.",
+      "Draw 3 different head types (round, square, long) from the same angle.",
+      "10 faces from photos: construction first, features placed on the construction lines."
+     ],
+     "assignment": {
+      "title": "8-view head rotation",
+      "desc": "Upload your head rotation — this is an early turnaround."
+     }
+    },
+    {
+     "id": "w22",
+     "n": 22,
+     "title": "Hands",
+     "goal": "Draw hands as simple shapes that can grip, point and gesture.",
+     "videos": [
+      {
+       "id": "vUSWfeY7xAs"
+      },
+      {
+       "id": "-tQlEjvBIi0"
+      },
+      {
+       "id": "wmajV4zcXeA"
+      }
+     ],
+     "study": [
+      "Draw your own hand in 20 positions (use a mirror or take photos).",
+      "Simplify: palm as a box, fingers as cylinders. 10 constructed hands, then 10 refined ones.",
+      "Draw 5 hand gestures that show an emotion: angry fist, shy fidget, pointing, waving, holding something delicate."
+     ],
+     "assignment": {
+      "title": "Hands page",
+      "desc": "Upload your best hands page."
+     }
+    },
+    {
+     "id": "w23",
+     "n": 23,
+     "title": "Feet, legs & any pose from any angle",
+     "goal": "Finish the figure, and start drawing animals.",
+     "videos": [
+      {
+       "id": "Eld24g2zWUs"
+      },
+      {
+       "id": "bv0RzXK5ZIk"
+      },
+      {
+       "id": "QNYZ_NsTc24"
+      },
+      {
+       "id": "c_0xzTOAjs0",
+       "optional": true
+      },
+      {
+       "id": "Azk8n047Nhg",
+       "note": "Animals begin — one session a week from now on"
+      }
+     ],
+     "study": [
+      "Feet as a wedge + toes block: 20 feet from different angles.",
+      "10 full figures from unusual angles (from above, below, behind) with mannequin construction.",
+      "Animals: 1 session of a pet or animal from life or video. Look for the gesture first, just like a person."
+     ],
+     "assignment": {
+      "title": "Feet page + animal sketches",
+      "desc": "Upload one of each."
+     }
+    },
+    {
+     "id": "w24",
+     "n": 24,
+     "title": "Review & Stage 3 benchmark",
+     "goal": "Look back at the halfway point and record your progress.",
+     "videos": [
+      {
+       "id": "tCZIqbRDphs"
+      },
+      {
+       "id": "KfBJqiPVVyI",
+       "optional": true
+      },
+      {
+       "id": "m583-GDIFCQ",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Redo the four benchmark drawings and compare with weeks 1, 8 and 16. You're halfway!",
+      "Get feedback on 3–5 pieces from an art community.",
+      "Rest of the week: the weakest topic from this stage (for most people that's hands or foreshortening)."
+     ],
+     "assignment": {
+      "title": "Stage 3 benchmark",
+      "desc": "Upload the 4 benchmark drawings."
+     },
+     "benchmark": true
+    }
+   ]
+  },
+  {
+   "id": "s4",
+   "n": 4,
+   "title": "Composition, Staging & Environments",
+   "months": "Months 7–8",
+   "tagline": "Decide what to show and how — put characters into worlds that read instantly.",
+   "why": "In animation, every shot must read in a second or two. Composition and staging are how layout artists and storyboard artists make that happen. Composition isn't about filling the page — it's about deciding what not to draw.",
+   "focus": [
+    "Thumbnails (small, fast, loose)",
+    "Rule of thirds, framing, where the eye goes",
+    "Value composition and silhouette",
+    "Backgrounds and environments",
+    "Characters interacting with their world",
+    "Animals (continued)"
+   ],
+   "ignore": [
+    "Over-detailing",
+    "Drawing everything you see",
+    "Finished illustrations"
+   ],
+   "roadmap": "Roadmap months 7–8: Composition",
+   "daily": {
+    "warmup": "Ellipses, then a page of 6 tiny thumbnail rectangles filled with simple compositions.",
+    "gesture": "Line of Action → alternate Figures and Animals each day. 10 × 1 min, 5 × 2 min.",
+    "sketchbook": "5-minute location thumbnails: a café, a street, a park. Just big shapes of light and dark."
+   },
+   "weeks": [
+    {
+     "id": "w25",
+     "n": 25,
+     "title": "Thumbnails",
+     "goal": "Use tiny, fast drawings to find the best version of an idea.",
+     "videos": [
+      {
+       "id": "EQ8q__Fd-F0"
+      },
+      {
+       "id": "ACJqXFyFVQw"
+      }
+     ],
+     "study": [
+      "Roadmap exercise: pick 2 scenes. For each, sketch 2–3 thumbnails exploring different crops and value arrangements. 5–7 minutes each, pencil only, no details.",
+      "Hold them at arm's length: which reads clearly? Where does your eye go? Pick the strongest one from each scene.",
+      "Notan studies: 10 film stills or photos reduced to just black and white shapes."
+     ],
+     "assignment": {
+      "title": "Thumbnail page + notan studies",
+      "desc": "Upload your thumbnails, with the winners circled."
+     }
+    },
+    {
+     "id": "w26",
+     "n": 26,
+     "title": "Value composition",
+     "goal": "Organise light and dark so the eye goes where you want.",
+     "videos": [
+      {
+       "id": "QoboM7oIiIk"
+      },
+      {
+       "id": "e9BjoC4IQag"
+      },
+      {
+       "id": "oUmV_gfAbxQ"
+      },
+      {
+       "id": "usj75M0UOIg"
+      }
+     ],
+     "study": [
+      "Take one of last week's winning thumbnails and turn it into a larger 3-value drawing.",
+      "Rule of thirds: draw the same character in a landscape 3 ways — centred, on a third, and tiny in the distance. What does each one feel like?",
+      "Find 'evenness' in your old drawings (evenly spaced, same-size shapes) and redraw one to fix it."
+     ],
+     "assignment": {
+      "title": "3-value composition",
+      "desc": "Upload the thumbnail and the larger drawing side by side."
+     }
+    },
+    {
+     "id": "w27",
+     "n": 27,
+     "title": "Backgrounds & environments",
+     "goal": "Draw places — interiors, streets and nature — the way background artists do.",
+     "videos": [
+      {
+       "id": "ZhzdeThllUM"
+      },
+      {
+       "id": "KZ75ppr4luE",
+       "note": "Peter Han, week 6 part 1"
+      },
+      {
+       "id": "ytrDZrgPKfY",
+       "note": "Peter Han, week 6 part 2"
+      }
+     ],
+     "study": [
+      "2 on-location environment sketches: one interior, one outdoor/nature (Peter Han takes his class to an arboretum — go to a park or garden).",
+      "Study 5 backgrounds from animated films on Film-Grab: draw the big shapes and the value plan only (10 min each).",
+      "Draw the same street at 3 depths: foreground, middle ground, background. Use overlap and value to separate them."
+     ],
+     "assignment": {
+      "title": "Two environment sketches",
+      "desc": "Upload one interior and one exterior."
+     }
+    },
+    {
+     "id": "w28",
+     "n": 28,
+     "title": "Silhouette & staging",
+     "goal": "Make poses and shots that read clearly even as a black shape.",
+     "videos": [
+      {
+       "id": "fwMdz8Teuno"
+      },
+      {
+       "id": "s9TcEZIXSLI"
+      },
+      {
+       "id": "HfFj-VQKiAM"
+      }
+     ],
+     "study": [
+      "Silhouette test: fill 10 of your gestures in solid black. Which ones can you still read? Redraw the unclear ones so the arms and legs separate from the body.",
+      "Draw a character showing 5 emotions with body only (no face): proud, sad, scared, sneaky, excited.",
+      "Stage one simple action ('picking up a heavy box') 3 different ways and decide which reads best."
+     ],
+     "assignment": {
+      "title": "Silhouette + body-language sheet",
+      "desc": "Upload both pages."
+     }
+    },
+    {
+     "id": "w29",
+     "n": 29,
+     "title": "Characters in scenes",
+     "goal": "Put figures into environments, at the right scale, interacting with things.",
+     "videos": [
+      {
+       "id": "312gWI3DQOI"
+      },
+      {
+       "id": "aPflB7_XXaY"
+      },
+      {
+       "id": "S3N6t6i1Uxw"
+      },
+      {
+       "id": "APKNdfEtRbo",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Draw 3 scenes with a person interacting with their environment: sitting on stairs, leaning on a wall, opening a fridge. Use the horizon line to place them at the right height.",
+      "Draw two characters interacting: arguing, hugging, a handshake. Think about who is dominant in the composition.",
+      "One thumbnail sequence: 4 frames of a character entering a room."
+     ],
+     "assignment": {
+      "title": "Character-in-scene drawings",
+      "desc": "Upload your 3 scenes."
+     }
+    },
+    {
+     "id": "w30",
+     "n": 30,
+     "title": "Clothing & folds",
+     "goal": "Draw clothes that show the body and the movement underneath.",
+     "videos": [
+      {
+       "id": "E1RiMecwZlA"
+      },
+      {
+       "id": "6lpStdgAzVA",
+       "optional": true,
+       "note": "1-hour Aaron Blaise lesson on costumed figures"
+      }
+     ],
+     "study": [
+      "Draw a T-shirt, trousers and a jacket hanging up, then on a person.",
+      "Find the tension points (shoulders, elbows, knees) in 10 photos and draw only the folds coming out of them.",
+      "Dress one of your mannequins from week 13 in 3 different outfits."
+     ],
+     "assignment": {
+      "title": "Clothed figure page",
+      "desc": "Upload your 3-outfit mannequin."
+     }
+    },
+    {
+     "id": "w31",
+     "n": 31,
+     "title": "Animals",
+     "goal": "Construct four-legged animals with the same tools you use for people.",
+     "videos": [
+      {
+       "id": "RSK5yGvlPpI",
+       "note": "1-hour lesson — worth it"
+      },
+      {
+       "id": "awlwTzrlXWY"
+      },
+      {
+       "id": "QPy-sC7m_OA"
+      },
+      {
+       "id": "9BjpIJyPi5c",
+       "optional": true
+      },
+      {
+       "id": "oDxSqPookyU",
+       "optional": true,
+       "note": "Cartoon animals"
+      }
+     ],
+     "study": [
+      "Draw a cat, dog and horse as simple forms: ribcage ball, hip ball, neck, head, legs.",
+      "Compare a human leg with a dog's hind leg — they have the same parts, just in different proportions. Draw both side by side.",
+      "Turn one real animal into a cartoon character: keep the gesture, simplify and exaggerate the shapes."
+     ],
+     "assignment": {
+      "title": "Animal studies + cartoon version",
+      "desc": "Upload a page of studies and your cartoon animal."
+     }
+    },
+    {
+     "id": "w32",
+     "n": 32,
+     "title": "Review, imagination & Stage 4 benchmark",
+     "goal": "Draw from imagination using everything so far, and record your progress.",
+     "videos": [
+      {
+       "id": "DiMsst3OxAA"
+      },
+      {
+       "id": "-Ww0BXehQ5E"
+      },
+      {
+       "id": "FNgidxxdN6E",
+       "anime": true,
+       "note": "Staging action, anime style"
+      }
+     ],
+     "study": [
+      "Redo the four benchmark drawings, then compare with earlier stages.",
+      "One full composition from imagination: a character in an environment doing something. Thumbnail first!",
+      "Get feedback from a community on that composition."
+     ],
+     "assignment": {
+      "title": "Stage 4 benchmark + imagination piece",
+      "desc": "Upload your benchmark drawings and composition."
+     },
+     "benchmark": true
+    }
+   ]
+  },
+  {
+   "id": "s5",
+   "n": 5,
+   "title": "Characters for Animation & Film Studies",
+   "months": "Months 9–10",
+   "tagline": "Design characters that can act — and learn from the films you love.",
+   "why": "Animated characters must be drawn consistently from every angle and must act through expressions and poses. Studying films closely teaches you how professionals make those decisions. You're no longer just practising — you're studying.",
+   "focus": [
+    "Expressions and acting",
+    "Shape design and appeal",
+    "Character design",
+    "Turnarounds and model sheets",
+    "Master studies of animated films (value, staging, simplification)"
+   ],
+   "ignore": [
+    "Copying a style without understanding it",
+    "Comparing your progress with professionals",
+    "Finding 'your style' (it takes years and comes on its own)"
+   ],
+   "roadmap": "Roadmap months 9–10: Value keys + master studies (done from film stills)",
+   "daily": {
+    "warmup": "10 Loomis heads at random angles, then 5 quick expressions on them.",
+    "gesture": "Line of Action → Faces/expressions (2 days) and Figures (3 days). Push every pose 20% further than the photo.",
+    "sketchbook": "People-watching: capture attitudes and expressions in a few lines."
+   },
+   "weeks": [
+    {
+     "id": "w33",
+     "n": 33,
+     "title": "Expressions",
+     "goal": "Draw clear, readable emotions on a face.",
+     "videos": [
+      {
+       "id": "Wnt0qDMbWuE"
+      },
+      {
+       "id": "S94VIlQyFWo"
+      },
+      {
+       "id": "TQc4MU-gsiQ",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Use a mirror: draw your own face in 10 expressions.",
+      "One simple character head, 12 expressions: happy, sad, angry, surprised, scared, disgusted, smug, shy, bored, determined, confused, laughing.",
+      "Redo 3 of them with the whole body acting too."
+     ],
+     "assignment": {
+      "title": "12-expression sheet",
+      "desc": "Upload your expression sheet."
+     }
+    },
+    {
+     "id": "w34",
+     "n": 34,
+     "title": "Eyes, nose, mouth & hair",
+     "goal": "Draw the features in a simplified, stylised way that still turns in 3D.",
+     "videos": [
+      {
+       "id": "Q_dpP6MyWQA"
+      },
+      {
+       "id": "TWe0NYmWc8A"
+      },
+      {
+       "id": "MoziDzRT29w"
+      },
+      {
+       "id": "5wAufkTqKss"
+      },
+      {
+       "id": "aLUI7M7MW3w"
+      },
+      {
+       "id": "MLO0TDQFN5I",
+       "anime": true
+      },
+      {
+       "id": "1gZMuS7ipgU",
+       "anime": true
+      }
+     ],
+     "study": [
+      "One page each: eyes, noses, mouths — each from 5 angles.",
+      "Draw hair as big shapes first (like a helmet), then break it into clumps. 10 hairstyles.",
+      "Draw the same face in 3 styles: realistic, western cartoon, anime."
+     ],
+     "assignment": {
+      "title": "Features pages",
+      "desc": "Upload your features and 3-style face."
+     }
+    },
+    {
+     "id": "w35",
+     "n": 35,
+     "title": "Shape design & appeal",
+     "goal": "Use shape, contrast and simplification to make characters appealing.",
+     "videos": [
+      {
+       "id": "ID8r0OhiYe0"
+      },
+      {
+       "id": "Uigc8ofhDuo"
+      },
+      {
+       "id": "5brzxLlTizg"
+      },
+      {
+       "id": "rwsAgvfZ3dU",
+       "optional": true,
+       "note": "Cartoon people with Tim Hodge"
+      }
+     ],
+     "study": [
+      "Make 3 characters from one basic shape each: circle (friendly), square (strong), triangle (sneaky/dangerous).",
+      "Big–medium–small: redesign one character so its shapes aren't all the same size.",
+      "Draw 20 small silhouettes of possible characters. Pick the 3 most interesting."
+     ],
+     "assignment": {
+      "title": "Shape-language characters",
+      "desc": "Upload your circle/square/triangle characters."
+     }
+    },
+    {
+     "id": "w36",
+     "n": 36,
+     "title": "Character design",
+     "goal": "Design an original character from a brief.",
+     "videos": [
+      {
+       "id": "bUCx3WW8s3g"
+      },
+      {
+       "id": "_bzlcWKXIfI"
+      },
+      {
+       "id": "DHzJMa_pqPY"
+      },
+      {
+       "id": "5W3Wj-a_7Vo",
+       "optional": true
+      },
+      {
+       "id": "SEu4NE1zV9U",
+       "anime": true
+      },
+      {
+       "id": "zDq9s9ZG_Ts",
+       "anime": true
+      }
+     ],
+     "study": [
+      "Write a 3-sentence brief: who they are, what they want, one quirk.",
+      "20 thumbnail silhouettes → 5 rough designs → 1 final design.",
+      "Draw your final character in 3 poses that show their personality."
+     ],
+     "assignment": {
+      "title": "Character design: process + final",
+      "desc": "Upload thumbnails, roughs and the final design."
+     }
+    },
+    {
+     "id": "w37",
+     "n": 37,
+     "title": "Turnarounds & model sheets",
+     "goal": "Draw the same character consistently from every angle — the core skill of animation.",
+     "videos": [
+      {
+       "id": "1EPNYWeEf1U",
+       "note": "Re-watch: heads from any angle"
+      },
+      {
+       "id": "4qJUO1eO4Ws"
+      }
+     ],
+     "study": [
+      "Turnaround of your week 36 character: front, 3/4 front, side, 3/4 back, back. Draw horizontal guide lines across all views (top of head, eyes, chin, shoulders, waist, knees, feet).",
+      "Model sheet: the turnaround plus 4 expressions and 2 poses on one page.",
+      "Draw your character 10 times from imagination in different poses, then check every one against the model sheet."
+     ],
+     "assignment": {
+      "title": "Turnaround + model sheet",
+      "desc": "Upload both."
+     }
+    },
+    {
+     "id": "w38",
+     "n": 38,
+     "title": "Design from nature",
+     "goal": "Design creatures and props inspired by real things.",
+     "videos": [
+      {
+       "id": "On85_6d7huw",
+       "note": "Peter Han, week 7 — the plant redesign project"
+      },
+      {
+       "id": "Eg5BQtqqOCQ",
+       "note": "Peter Han, week 8"
+      },
+      {
+       "id": "eHr2LlJD5T0"
+      }
+     ],
+     "study": [
+      "Peter Han's redesign project: collect reference of a plant (or animal) you like, then design a creature, character or prop based on its shapes and patterns.",
+      "Design a companion creature or pet for your week 36 character.",
+      "Draw it next to your character so the scale is clear."
+     ],
+     "assignment": {
+      "title": "Nature-based design",
+      "desc": "Upload your reference sketches and the design."
+     }
+    },
+    {
+     "id": "w39",
+     "n": 39,
+     "title": "Film studies I: value & simplification",
+     "goal": "Study how animated films use value and simplification.",
+     "videos": [
+      {
+       "id": "J1cHAzKta9w",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Roadmap value keys: draw the same scene in high key (mostly light), mid key and low key (mostly dark).",
+      "3 master studies from animated-film stills on Film-Grab. Fill in the Master Study worksheet before each one — the analysis is where the learning happens.",
+      "One focus per study: value structure, composition, or what the artist left out."
+     ],
+     "assignment": {
+      "title": "Value keys + 3 master studies",
+      "desc": "Upload your studies (worksheets are saved in the app)."
+     },
+     "worksheet": true
+    },
+    {
+     "id": "w40",
+     "n": 40,
+     "title": "Film studies II & Stage 5 benchmark",
+     "goal": "Study character staging in films, and record your progress.",
+     "videos": [],
+     "study": [
+      "3 master studies of film stills that feature characters: draw the poses and the staging, not the details.",
+      "Pause a scene of an animated film on 10 key moments and draw quick gestures of each one.",
+      "Redo the four benchmark drawings and compare with all earlier stages."
+     ],
+     "assignment": {
+      "title": "Stage 5 benchmark + film studies",
+      "desc": "Upload your benchmark drawings and studies."
+     },
+     "benchmark": true,
+     "worksheet": true
+    }
+   ]
+  },
+  {
+   "id": "s6",
+   "n": 6,
+   "title": "Portfolio & the Bridge to Animation",
+   "months": "Months 11–12",
+   "tagline": "Bring everything together in one portfolio project — and take your first step into animation.",
+   "why": "This stage isn't about moving on — it's about going deeper. You'll go back to the basics with more awareness and confidence than before, and finish with a portfolio that shows how far you've come.",
+   "focus": [
+    "Sketching regularly to clarify ideas",
+    "Deliberate composition and value choices",
+    "Consistency across a set of drawings",
+    "Simplifying instead of adding"
+   ],
+   "ignore": [
+    "Thinking the fundamentals are 'behind you'",
+    "Overcomplicating strong ideas",
+    "Perfection — finished beats perfect"
+   ],
+   "roadmap": "Roadmap months 11–12: Sketching + values + composition",
+   "daily": {
+    "warmup": "Your choice: 15 minutes of whichever drill feels weakest.",
+    "gesture": "Line of Action → Figures. 30 sec – 2 min. Push exaggeration.",
+    "sketchbook": "Keep a daily page — collect ideas, people and places for your project."
+   },
+   "weeks": [
+    {
+     "id": "w41",
+     "n": 41,
+     "title": "Plan your portfolio project",
+     "goal": "Choose a small story world: one main character, one place, one short moment.",
+     "videos": [
+      {
+       "id": "6l1BvIVNGXc",
+       "note": "Storyboarding for TV animation (Tim Hodge)"
+      },
+      {
+       "id": "ZUYWlwaC1Gg",
+       "optional": true
+      },
+      {
+       "id": "HRzC1WQMgYs",
+       "anime": true
+      }
+     ],
+     "study": [
+      "Write the project brief in the Portfolio page: character, world, and a 20–30 second story moment.",
+      "Reuse your week 36 character, or design a new one.",
+      "Thumbnail 3 versions of the story moment and pick one."
+     ],
+     "assignment": {
+      "title": "Project brief + story thumbnails",
+      "desc": "Fill in the brief on the Portfolio page and upload the thumbnails."
+     },
+     "portfolio": [
+      "brief"
+     ]
+    },
+    {
+     "id": "w42",
+     "n": 42,
+     "title": "Character model sheet",
+     "goal": "The final turnaround and expression sheet for your main character.",
+     "videos": [],
+     "study": [
+      "Final 5-view turnaround with guide lines.",
+      "Expression sheet with 8–12 expressions.",
+      "Check every drawing against the others for consistency (size of eyes, length of arms, shapes)."
+     ],
+     "assignment": {
+      "title": "Turnaround + expression sheet",
+      "desc": "Upload them to the Portfolio page."
+     },
+     "portfolio": [
+      "turnaround",
+      "expressions"
+     ]
+    },
+    {
+     "id": "w43",
+     "n": 43,
+     "title": "Pose & action sheet",
+     "goal": "Show your character moving and acting.",
+     "videos": [
+      {
+       "id": "JtaBjtAGsk0"
+      },
+      {
+       "id": "F8OtE60T8yU"
+      }
+     ],
+     "study": [
+      "10–12 poses showing personality: idle, walking, running, jumping, thinking, plus 3 actions unique to your character.",
+      "For 3 of the actions, draw the anticipation pose before the action.",
+      "Optional: a sheet for the companion creature."
+     ],
+     "assignment": {
+      "title": "Pose sheet",
+      "desc": "Upload to the Portfolio page."
+     },
+     "portfolio": [
+      "poses"
+     ]
+    },
+    {
+     "id": "w44",
+     "n": 44,
+     "title": "Environments",
+     "goal": "Two finished layouts for your character's world.",
+     "videos": [
+      {
+       "id": "ZhzdeThllUM",
+       "note": "Re-watch: backgrounds"
+      }
+     ],
+     "study": [
+      "Thumbnail 6 environment ideas, then pick 2: one wide establishing shot, one closer shot where the story happens.",
+      "Draw each with clear perspective and a 3-value plan.",
+      "Put your character into one of them at the right scale."
+     ],
+     "assignment": {
+      "title": "Two environment layouts",
+      "desc": "Upload to the Portfolio page."
+     },
+     "portfolio": [
+      "env1",
+      "env2"
+     ]
+    },
+    {
+     "id": "w45",
+     "n": 45,
+     "title": "Storyboard",
+     "goal": "Tell your story moment in 12–20 panels.",
+     "videos": [
+      {
+       "id": "SIRilOnnSfg",
+       "note": "Storyboarding with Woody Woodman — long, watch in parts"
+      },
+      {
+       "id": "bh_zB1zf4Hs",
+       "anime": true
+      },
+      {
+       "id": "UGamHJjKwNw",
+       "anime": true
+      },
+      {
+       "id": "ChsJPFvjMk8",
+       "anime": true,
+       "optional": true
+      }
+     ],
+     "study": [
+      "Rough the full board as tiny thumbnails first.",
+      "Vary the shots: wide, medium, close-up. Keep the camera on one side of the action (the 180° rule).",
+      "Draw the final panels clearly. Arrows for movement, short notes under each panel."
+     ],
+     "assignment": {
+      "title": "Storyboard",
+      "desc": "Upload to the Portfolio page."
+     },
+     "portfolio": [
+      "storyboard"
+     ]
+    },
+    {
+     "id": "w46",
+     "n": 46,
+     "title": "Clean-up & line quality",
+     "goal": "Present your best pieces with clean, confident linework.",
+     "videos": [
+      {
+       "id": "7m3wGbPMSUY"
+      },
+      {
+       "id": "KF32FMVvIxk"
+      },
+      {
+       "id": "wbT2MCAWOt8"
+      },
+      {
+       "id": "O61NED7VZIc"
+      },
+      {
+       "id": "HVqSY_sHuyI",
+       "optional": true
+      }
+     ],
+     "study": [
+      "Choose your 3 strongest portfolio pieces and redraw them cleanly over the rough (lightbox, window or light pencil).",
+      "Use line weight: thicker lines for the outside and for shadows, thinner for inside details.",
+      "Compare the rough and the clean version — did the clean-up keep the energy?"
+     ],
+     "assignment": {
+      "title": "Clean versions of 3 pieces",
+      "desc": "Replace the rough uploads on the Portfolio page."
+     }
+    },
+    {
+     "id": "w47",
+     "n": 47,
+     "title": "Assemble the portfolio",
+     "goal": "Choose, order and present your best work from the year.",
+     "videos": [
+      {
+       "id": "Hbcdn8QXcts"
+      }
+     ],
+     "study": [
+      "Choose your 10 best sketchbook pages from the whole year (Gallery → star them).",
+      "Order the portfolio: character work first, then environments, storyboard, then sketchbook.",
+      "Get feedback on the whole portfolio from a community or someone you trust."
+     ],
+     "assignment": {
+      "title": "Sketchbook selection",
+      "desc": "Star your 10 favourite drawings in the Gallery."
+     },
+     "portfolio": [
+      "sketchbook"
+     ]
+    },
+    {
+     "id": "w48",
+     "n": 48,
+     "title": "Bridge to animation & final benchmark",
+     "goal": "Make your first animation — and see how far you've come.",
+     "videos": [
+      {
+       "id": "BarOk2p38LQ"
+      },
+      {
+       "id": "pwCEj39bj1g"
+      },
+      {
+       "id": "tYu57sKfrMY"
+      }
+     ],
+     "study": [
+      "Final benchmark: the four drawings, one last time. Then lay out all 7 sets side by side.",
+      "Flipbook: a bouncing ball on a stack of sticky notes (around 20 pages). Use squash and stretch, and space the drawings closer together at the top of each bounce.",
+      "Bonus: a 6-drawing flipbook of your character blinking or waving."
+     ],
+     "assignment": {
+      "title": "Final benchmark + flipbook",
+      "desc": "Upload the benchmark and a photo (or GIF) of your flipbook."
+     },
+     "benchmark": true,
+     "portfolio": [
+      "progress",
+      "flipbook"
+     ]
+    }
+   ]
+  }
+ ],
+ "portfolio": {
+  "intro": "Your final project: one character, their world, and a short story moment. This is the kind of drawing work animation studios look for.",
+  "items": [
+   {
+    "id": "brief",
+    "title": "Project brief",
+    "desc": "Who your character is, the world, and the 20–30 second story moment.",
+    "week": "w41",
+    "text": true
+   },
+   {
+    "id": "turnaround",
+    "title": "Character turnaround",
+    "desc": "5 views — front, 3/4, side, 3/4 back, back — with guide lines.",
+    "week": "w42"
+   },
+   {
+    "id": "expressions",
+    "title": "Expression sheet",
+    "desc": "8–12 expressions of your main character.",
+    "week": "w42"
+   },
+   {
+    "id": "poses",
+    "title": "Pose & action sheet",
+    "desc": "10–12 poses that show personality, with anticipation poses.",
+    "week": "w43"
+   },
+   {
+    "id": "env1",
+    "title": "Environment — establishing shot",
+    "desc": "A wide shot of your character's world with a clear value plan.",
+    "week": "w44"
+   },
+   {
+    "id": "env2",
+    "title": "Environment — story location",
+    "desc": "A closer shot where the story happens, with your character at the right scale.",
+    "week": "w44"
+   },
+   {
+    "id": "storyboard",
+    "title": "Storyboard",
+    "desc": "12–20 panels telling your story moment.",
+    "week": "w45"
+   },
+   {
+    "id": "sketchbook",
+    "title": "Sketchbook selection",
+    "desc": "Your 10 best drawings of the year (starred in the Gallery).",
+    "week": "w47",
+    "starred": true
+   },
+   {
+    "id": "progress",
+    "title": "Progress: week 1 vs week 48",
+    "desc": "Your benchmark drawings from the start and the end.",
+    "week": "w48",
+    "benchmarks": true
+   },
+   {
+    "id": "flipbook",
+    "title": "First animation: bouncing ball",
+    "desc": "A photo or GIF of your flipbook.",
+    "week": "w48"
+   }
+  ]
+ },
+ "worksheet": {
+  "title": "Master study worksheet",
+  "intro": "From the roadmap: fill this in before you draw — the analysis is where the real learning happens. Keep one focus per study.",
+  "before": [
+   {
+    "id": "film",
+    "label": "Film & shot (e.g. the film title and a description of the scene)"
+   },
+   {
+    "id": "focus",
+    "label": "My focus",
+    "options": [
+     "Value structure",
+     "Composition",
+     "Staging & pose",
+     "Simplification",
+     "Edge control"
+    ]
+   },
+   {
+    "id": "key",
+    "label": "What is the value key? (high, mid, low)"
+   },
+   {
+    "id": "eye",
+    "label": "Where does your eye go first? Why?"
+   },
+   {
+    "id": "edges",
+    "label": "Where are the hard edges? Where are the soft or lost edges?"
+   },
+   {
+    "id": "leftout",
+    "label": "What did the artist leave out or simplify?"
+   }
+  ],
+  "after": [
+   {
+    "id": "noticed",
+    "label": "What did I notice while drawing that I didn't see during the analysis?"
+   },
+   {
+    "id": "match",
+    "label": "Did my value thumbnail match the final result? If not, where did it diverge?"
+   },
+   {
+    "id": "again",
+    "label": "What would I do differently if I drew this study again?"
+   },
+   {
+    "id": "carry",
+    "label": "The ONE specific thing I'm carrying into my next drawing"
+   }
+  ]
+ },
+ "resources": [
+  {
+   "name": "Line of Action",
+   "url": "https://line-of-action.com",
+   "what": "Timed reference photos for the daily gesture block: figures, hands & feet, faces, animals.",
+   "use": "Every day"
+  },
+  {
+   "name": "Peter Han — Dynamic Sketching",
+   "url": "https://www.youtube.com/playlist?list=PLqR-aNpyEIVd91GCwsyOS3oRn6eoRhyio",
+   "what": "Line control, forms, perspective and design. (A re-upload of the course — links may change.)",
+   "use": "Stages 1–5"
+  },
+  {
+   "name": "Draw like a Sir",
+   "url": "https://www.youtube.com/@DrawlikeaSir",
+   "what": "Fast, cartoon- and anime-friendly tutorials on figures, faces, perspective and character design.",
+   "use": "All stages"
+  },
+  {
+   "name": "Proko",
+   "url": "https://www.youtube.com/@ProkoTV",
+   "what": "Methodical figure drawing, heads, perspective and value fundamentals.",
+   "use": "Stages 1–5"
+  },
+  {
+   "name": "Aaron Blaise",
+   "url": "https://www.youtube.com/@AaronBlaiseArt",
+   "what": "Former Disney animator — animals, expressions, silhouette and art tips.",
+   "use": "Stages 1, 3–6"
+  },
+  {
+   "name": "Alan Becker — 12 Principles of Animation",
+   "url": "https://www.youtube.com/watch?v=uDqjIdI4bF4",
+   "what": "Short, clear explanations of the principles of animation.",
+   "use": "Weeks 6, 16, 28, 43, 48"
+  },
+  {
+   "name": "Film-Grab",
+   "url": "https://film-grab.com",
+   "what": "Film stills archive (search for animated films) for master studies and background studies.",
+   "use": "Stages 4–5"
+  },
+  {
+   "name": "Critique communities",
+   "url": "https://www.reddit.com/r/learnart/",
+   "what": "r/learnart and r/ArtCrit — post work for feedback every few weeks.",
+   "use": "Review weeks"
+  }
+ ]
+}

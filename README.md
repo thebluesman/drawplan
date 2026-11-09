@@ -4,9 +4,15 @@ A 48-week pencil drawing course for someone heading towards animation. It runs l
 
 - **Course:** 6 stages × 8 weeks. Each week has embedded videos, main-study exercises, an assignment upload, notes, and the stage's "focus on / ignore" lists.
 - **Practice:** a 3-hour session timer (warm-up → gesture → main study → sketchbook), a manual practice log, and a 26-week activity heatmap.
+- **Busy days:** the timer also offers a 1-hour short session and a 20-minute "just a sketch". Home has a "Take today off" button, and rest days show as rings on the heatmap. Weeks unlock when you finish them, not by date, so a missed day only moves things along by a day. The session lengths are set in `sessionPlans` in `curriculum.json`.
+- **Onboarding:** four short steps on first run (name, how the year works, a day of drawing, start date). You can replay it from Settings.
 - **Gallery:** every uploaded drawing, plus a benchmark comparison grid (the same 4 drawings at the end of each stage).
 - **Portfolio:** the final project in weeks 41–48 (turnaround, expressions, poses, environments, storyboard, flipbook).
 - **Master studies:** the roadmap's worksheet, used with film stills.
+
+## Getting it
+
+Go to <https://github.com/thebluesman/drawplan>, click the green **Code** button, then **Download ZIP**. Unzip it somewhere you'll keep it, like your Documents folder.
 
 ## Running it
 
@@ -18,6 +24,14 @@ You need Python 3.8 or newer. There's nothing else to install.
 The browser opens at <http://127.0.0.1:4817>. Keep the terminal window open while using the app, and close it to stop.
 
 The app only listens on this computer (`127.0.0.1`). Videos play from YouTube, so you need to be online for those.
+
+## Updating
+
+In the app, go to **Settings → Check for updates**. If there's a new version, click **Update now**. The app downloads it from GitHub, restarts itself and reloads the page. Your progress and drawings in `data/` are left alone. On Windows, close the app's window and start it again when it asks.
+
+If the app won't start, double-click `update.command` (Mac) or `update.bat` (Windows) instead. It does the same thing. If macOS blocks it the first time, right-click → Open.
+
+The installed version is recorded in `.version`. If the folder is a git clone, the updater runs `git pull` instead.
 
 ## Trying it with demo data
 

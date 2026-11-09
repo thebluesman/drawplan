@@ -1,7 +1,9 @@
 import {
   course, state, save, flush, today, uid, weekState, visibleVideos, uploadsFor, weekPct, isDone,
   currentWeek, stagePct, overallPct, thisWeekStats, weekStreak, totalMinutes, videoPct,
+  planMinutes, isRest, setRest, minutesOn,
 } from "./store.js";
+import { reduced, draw, toast, fill, pop } from "./motion.js";
 import {
   esc, icon, stageColor, fmtMin, videoMinutes, playVideo, resumeAt, fmtClock, tile, bindTiles, dropzone, bindDrop, slot, bindSlots, kindLabel,
 } from "./ui.js";
@@ -19,31 +21,106 @@ function scheduleNote() {
   if (diff >= 0) return `<span class="badge ok">On track</span>`;
   const behind = -diff;
   return behind <= 4
-    ? `<span class="badge">${behind} week${behind > 1 ? "s" : ""} behind, within your 4 spare weeks</span>`
-    : `<span class="badge accent">${behind} weeks behind schedule. That's fine, keep going.</span>`;
+    ? `<span class="badge" title="The year has about 4 spare weeks for holidays, sick days and weeks that need longer.">Using ${behind} of your 4 spare weeks</span>`
+    : `<span class="badge" title="You're ${behind} weeks past the original plan. The course waits for you, so nothing is lost. You can move your start date in Settings if you'd like the plan to match.">Going at your own pace</span>`;
 }
 
-// ===================== WELCOME =====================
+// ===================== WELCOME (onboarding) =====================
+// Four short steps: name → how the year works → a day of drawing → start date. Replayable from Settings.
 export function welcome(root, done) {
-  root.innerHTML = `<div class="welcome"><div class="card stack">
-    <div class="brand" style="padding:0"><div class="brand-mark">${icon("pencil")}</div>
-      <div><div class="brand-name">${esc(course.cur.title)}</div><div class="brand-sub">${esc(course.cur.subtitle)}</div></div></div>
-    <h1>Welcome! Let's set up your year.</h1>
-    <p class="muted">48 weeks of drawing for animation, about 3 hours a day, 5 days a week. Everything you do here is saved on this computer.</p>
-    <label class="field">Your name<input class="input" id="w-name" autocomplete="given-name"></label>
-    <label class="field">Start date<input class="input" type="date" id="w-start" value="${today()}"></label>
-    <label class="toggle"><input type="checkbox" id="w-anime" checked> Show the optional anime lessons</label>
-    <button class="btn primary" id="w-go">Start the course</button>
-  </div></div>`;
-  root.querySelector("#w-go").onclick = () => {
-    const name = root.querySelector("#w-name").value.trim();
-    if (!name) return root.querySelector("#w-name").focus();
-    state.settings.name = name;
-    state.settings.startDate = root.querySelector("#w-start").value || today();
-    state.settings.anime = root.querySelector("#w-anime").checked;
+  const cur = course.cur;
+  const s = state.settings;
+  const draft = { name: s.name || "", startDate: s.startDate || today(), anime: s.anime !== false };
+  const plans = cur.sessionPlans || [];
+  const replay = !!s.name;
+  let step = 0;
+
+  const steps = [
+    () => `
+      <svg class="welcome-stroke" viewBox="0 0 320 60" aria-hidden="true"><path d="M6 44 C 60 6, 98 6, 132 30 S 214 58, 250 26 S 300 10, 314 18"/></svg>
+      <h1>${replay ? "Here's the tour again." : "Hi. Let's set up your sketchbook."}</h1>
+      <p class="muted">A year of pencil drawing, built towards animation. It runs on this computer, and everything you do stays here.</p>
+      <label class="field">What should we call you?<input class="input" id="w-name" autocomplete="given-name" value="${esc(draft.name)}"></label>`,
+    () => `
+      <div class="eyebrow">How the year works</div>
+      <h2>Six stages, eight weeks each.</h2>
+      <div class="w-stages">${cur.stages.map((st) => `<div><span class="dot" style="background:${stageColor(st)}"></span><b>${esc(st.title)}</b><span class="faint small">${esc(st.months)}</span></div>`).join("")}</div>
+      <p class="muted">You move on when you finish a week, not when the calendar says so. There are about four spare weeks in the year for holidays, sick days and weeks that need longer.</p>`,
+    () => `
+      <div class="eyebrow">A day of drawing</div>
+      <h2>About ${cur.hoursPerDay} hours, ${cur.daysPerWeek} days a week.</h2>
+      <div class="blocklist">${cur.dailyBlocks.map((b) => `<div class="block"><div class="min">${b.minutes} min</div><div class="what"><b>${esc(b.label)}</b></div></div>`).join("")}</div>
+      <div class="note-box">Busy day? Pick a shorter session instead${plans.length > 1 ? `: ${plans.slice(1).map((p) => `<b>${esc(p.label.toLowerCase())}</b> (${fmtMin(planMinutes(p.id))})`).join(" or ")}` : ""}. Every bit of drawing counts, and a day off is part of the plan too.</div>`,
+    () => `
+      <div class="eyebrow">Last thing</div>
+      <h2>When are you starting?</h2>
+      <label class="field">Start date<span class="hint">Only used to show how your pace compares with the plan.</span><input class="input" type="date" id="w-start" value="${esc(draft.startDate)}"></label>
+      <label class="toggle"><input type="checkbox" id="w-anime" ${draft.anime ? "checked" : ""}> Show the optional anime lessons</label>
+      <p class="muted small">Week 1 starts with four baseline drawings. They show where you are today, so they aren't meant to look good. That's what makes them useful later.</p>`,
+  ];
+
+  const keep = () => {
+    const n = root.querySelector("#w-name");
+    if (n) draft.name = n.value.trim();
+    const d = root.querySelector("#w-start");
+    if (d) draft.startDate = d.value || today();
+    const a = root.querySelector("#w-anime");
+    if (a) draft.anime = a.checked;
+  };
+
+  const render = (dir = 0) => {
+    const last = step === steps.length - 1;
+    root.innerHTML = `<div class="welcome"><div class="card stack">
+      <div class="spread">
+        <div class="brand" style="padding:0"><div class="brand-mark">${icon("pencil")}</div>
+          <div><div class="brand-name">${esc(cur.title)}</div><div class="brand-sub">Drawing for animation</div></div></div>
+        <div class="w-dots" role="img" aria-label="Step ${step + 1} of ${steps.length}">${steps.map((_, i) => `<i class="${i === step ? "on" : ""}"></i>`).join("")}</div>
+      </div>
+      <div class="stack w-step">${steps[step]()}</div>
+      <div class="spread">
+        ${step ? `<button class="btn ghost" id="w-back">${icon("left")} Back</button>` : "<span></span>"}
+        <button class="btn primary" id="w-next">${last ? (replay ? "Back to the course" : "Start week 1") : "Next"} ${icon("right")}</button>
+      </div>
+    </div></div>`;
+    const body = root.querySelector(".w-step");
+    if (!reduced()) {
+      body.animate([{ opacity: 0, transform: `translateX(${dir * 16}px)` }, { opacity: 1, transform: "none" }], { duration: 380, easing: "cubic-bezier(.2,.7,.2,1)" });
+      body.querySelectorAll(".w-stages > div, .block").forEach((el, i) =>
+        el.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 360, delay: 80 + i * 50, easing: "ease-out", fill: "backwards" }));
+    }
+    if (dir) flow(root.querySelector(".w-dots"), step - dir, step);
+    draw(root.querySelector(".welcome-stroke path"));
+    const first = root.querySelector(".w-step input");
+    if (first && step === 0) first.focus();
+    root.querySelector("#w-back")?.addEventListener("click", () => { keep(); step--; render(-1); });
+    root.querySelector("#w-next").onclick = next;
+    root.querySelector(".welcome").onkeydown = (e) => { if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox") next(); };
+  };
+
+  // Step dots, page-control style: the old pill narrows back to a dot while the new one widens.
+  function flow(box, from, to) {
+    if (reduced() || !box) return;
+    const dots = box.querySelectorAll("i");
+    const css = getComputedStyle(box);
+    const opts = { duration: 420, easing: "cubic-bezier(.2,.7,.2,1)" };
+    dots[from].animate([{ width: "22px", background: css.getPropertyValue("--dot-on") }, {}], opts);
+    dots[to].animate([{ width: "8px", background: css.getPropertyValue("--dot-off") }, {}], opts);
+  }
+
+  function next() {
+    keep();
+    if (step === 0 && !draft.name) {
+      const n = root.querySelector("#w-name");
+      n.focus();
+      if (!reduced()) n.animate([{ transform: "translateX(0)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }], { duration: 260 });
+      return;
+    }
+    if (step < steps.length - 1) { step++; return render(1); }
+    Object.assign(state.settings, draft);
     save();
     done();
-  };
+  }
+  render();
 }
 
 // ===================== HOME =====================
@@ -58,6 +135,8 @@ export function home(root) {
   const recent = state.uploads.slice(-8).reverse();
   const hour = new Date().getHours();
   const greet = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const resting = isRest();
+  const drewToday = minutesOn(today()) > 0;
 
   root.innerHTML = `
   <div class="stack" style="gap:24px">
@@ -75,8 +154,8 @@ export function home(root) {
         <div class="eyebrow">This week</div>
         <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
           <div><div class="stat" style="padding:0"><div class="v">${tw.days}<span class="faint" style="font-size:18px">/${course.cur.daysPerWeek}</span></div><div class="l">days practised</div></div></div>
-          <div><div class="stat" style="padding:0"><div class="v">${(tw.minutes / 60).toFixed(1)}<span class="faint" style="font-size:18px">/${course.cur.hoursPerDay * course.cur.daysPerWeek}h</span></div><div class="l">hours</div></div></div>
-          <div><div class="stat" style="padding:0"><div class="v">${streak}</div><div class="l">week streak</div></div></div>
+          <div><div class="stat" style="padding:0"><div class="v">${(tw.minutes / 60).toFixed(1)}</div><div class="l">hours drawn</div></div></div>
+          <div><div class="stat" style="padding:0"><div class="v">${streak}</div><div class="l">${streak ? `week${streak > 1 ? "s" : ""} in a row` : "weeks in a row (4 days makes one)"}</div></div></div>
           <div><div class="stat" style="padding:0"><div class="v">${Math.round(totalMinutes() / 60)}</div><div class="l">hours in total</div></div></div>
         </div>
       </div>
@@ -88,7 +167,10 @@ export function home(root) {
         <div class="blocklist">
           ${course.cur.dailyBlocks.map((b) => `<div class="block"><div class="min">${b.minutes} min</div><div class="what"><b>${esc(b.label)}</b>${esc(b.id === "study" ? nextStudy : st.daily[b.id])}</div></div>`).join("")}
         </div>
-        <a class="btn" href="#/practice" style="align-self:flex-start">${icon("play")} Start the timer</a>
+        ${resting
+          ? `<div class="note-box rest-note"><span>Resting today. Rest is part of getting better. See you tomorrow.</span><button class="btn ghost small" id="unrest">Actually, I'll draw</button></div>`
+          : `<div class="row"><a class="btn" href="#/practice">${icon("play")} Start the timer</a>${drewToday ? "" : `<button class="btn ghost small" id="rest">${icon("moon")} Take today off</button>`}</div>
+        <div class="small muted">Short on time? ${(course.cur.sessionPlans || []).slice(1).map((p) => `<a href="#/practice/${p.id}">${esc(p.label.toLowerCase())} (${fmtMin(planMinutes(p.id))})</a>`).join(" or ")}. Every bit counts.</div>`}
       </div>
       <div class="card pad stack">
         <div class="spread"><h2>Your year</h2><span class="faint small">${overallPct()}% complete</span></div>
@@ -103,6 +185,12 @@ export function home(root) {
     </div>
   </div>`;
   bindTiles(root, () => home(root));
+  const restBtn = root.querySelector("#rest, #unrest");
+  if (restBtn) restBtn.onclick = () => {
+    setRest(restBtn.id === "rest");
+    home(root);
+    pop(root.querySelector(".rest-note, .blocklist"), 1.02);
+  };
 }
 
 // ===================== COURSE =====================
@@ -219,7 +307,8 @@ export function weekView(root, id) {
     </div>
   </div>
 
-  <div class="section focus-grid">
+  ${st.why ? `<div class="section"><div class="note-box why"><b>Why this stage</b> ${esc(st.why)}</div></div>` : ""}
+  <div class="section focus-grid" style="margin-top:16px">
     <div class="card pad"><h3>Focus on</h3><ul>${st.focus.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>
     <div class="card pad"><h3>Ignore for now</h3><ul>${st.ignore.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>
   </div>
@@ -230,7 +319,7 @@ export function weekView(root, id) {
   </div>
 
   <div class="section spread">
-    <span class="muted small">${isDone(w) ? "Nice work. This week is done." : "Finished everything you want to? Mark the week complete to move on."}</span>
+    <span class="muted small">${isDone(w) ? "Nice work. This week is done." : "You don't need every box ticked. When the week feels done, mark it complete and move on."}</span>
     <button class="btn ${isDone(w) ? "" : "primary"}" id="done">${isDone(w) ? "Mark as not complete" : icon("check") + " Complete " + wkNum(w).toLowerCase()}</button>
   </div>
   <div class="weeknav">
@@ -245,18 +334,25 @@ export function weekView(root, id) {
       save();
     }, rerender);
   });
+  // Re-render after a tick, then let the week's bar slide from where it was and the ticked row bounce.
+  const tickThen = (sel) => {
+    rerender();
+    fill(root.querySelector(".week-head"), { fromPct: pct, delay: 0 });
+    const el = root.querySelector(sel);
+    if (el?.querySelector("input")?.checked) pop(el, 1.015);
+  };
   root.querySelectorAll("[data-watch]").forEach((el) => {
     el.onchange = () => {
       ws.videos[el.dataset.watch] = el.checked;
       save();
-      rerender();
+      tickThen(`.toggle:has([data-watch="${el.dataset.watch}"])`);
     };
   });
   root.querySelectorAll("[data-study]").forEach((el) => {
     el.onchange = () => {
       ws.study[el.dataset.study] = el.checked;
       save();
-      rerender();
+      tickThen(`.check:has([data-study="${el.dataset.study}"])`);
     };
   });
   root.querySelector("#notes").oninput = (e) => {
@@ -267,6 +363,12 @@ export function weekView(root, id) {
     ws.done = !ws.done;
     ws.doneAt = ws.done ? today() : null;
     save();
+    if (ws.done) {
+      const stageDone = st.weeks.every(isDone);
+      toast(`${icon("done")}<span>${stageDone
+        ? `Stage ${st.n} complete. Have a look at your benchmarks side by side in the Gallery.`
+        : `${wkNum(w)} done. ${next ? `On to ${wkNum(next).toLowerCase()}.` : "That's the whole course."}`}</span>`);
+    }
     if (ws.done && next) location.hash = "#/week/" + next.id;
     else rerender();
   };
@@ -436,7 +538,7 @@ export function resources(root) {
 }
 
 // ===================== SETTINGS =====================
-export function settings(root, rerenderShell) {
+export function settings(root, rerenderShell, replayIntro) {
   const s = state.settings;
   root.innerHTML = `<div class="stack" style="gap:20px;max-width:640px">
     <h1>Settings</h1>
@@ -444,6 +546,7 @@ export function settings(root, rerenderShell) {
       <label class="field">Name<input class="input" id="s-name" value="${esc(s.name)}"></label>
       <label class="field">Start date<span class="hint">Used to tell you whether you're on schedule.</span><input class="input" type="date" id="s-start" value="${esc(s.startDate)}"></label>
       <label class="toggle"><input type="checkbox" id="s-anime" ${s.anime ? "checked" : ""}> Show the optional anime lessons</label>
+      <div class="row"><button class="btn small" id="s-intro">Replay the introduction</button></div>
       <label class="field">Theme<select class="input" id="s-theme">${["auto", "light", "dark"].map((t) => `<option value="${t}" ${s.theme === t ? "selected" : ""}>${t === "auto" ? "System (match my computer)" : t[0].toUpperCase() + t.slice(1)}</option>`).join("")}</select></label>
     </div>
     <div class="card pad stack">
@@ -453,6 +556,12 @@ export function settings(root, rerenderShell) {
       <label class="btn">Restore from a backup<input type="file" id="import" accept="application/json" hidden></label></div>
       <div class="small faint" id="import-msg"></div>
     </div>
+    <div class="card pad stack">
+      <h2>Updates</h2>
+      <p class="muted small">Get the latest version of the app. Your progress and drawings stay as they are.</p>
+      <div class="row"><button class="btn" id="upd-check">Check for updates</button></div>
+      <div class="small muted" id="upd-msg" role="status"></div>
+    </div>
   </div>`;
   const bind = (sel, key, ev = "input", get = (el) => el.value) => {
     root.querySelector(sel).addEventListener(ev, (e) => { s[key] = get(e.target); save(); rerenderShell?.(); });
@@ -461,12 +570,14 @@ export function settings(root, rerenderShell) {
   bind("#s-start", "startDate", "change");
   bind("#s-anime", "anime", "change", (el) => el.checked);
   bind("#s-theme", "theme", "change");
+  root.querySelector("#s-intro").onclick = () => replayIntro?.();
   root.querySelector("#export").onclick = () => {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(state, null, 1)], { type: "application/json" }));
     a.download = `sketchbook-academy-progress-${today()}.json`;
     a.click();
   };
+  bindUpdates(root);
   root.querySelector("#import").onchange = async (e) => {
     const msg = root.querySelector("#import-msg");
     try {
@@ -480,6 +591,58 @@ export function settings(root, rerenderShell) {
       setTimeout(() => location.reload(), 600);
     } catch (err) {
       msg.textContent = err.message;
+    }
+  };
+}
+
+// Settings → Updates: ask the local server to check GitHub, then install and restart.
+function bindUpdates(root) {
+  const btn = root.querySelector("#upd-check");
+  const msg = root.querySelector("#upd-msg");
+  const say = (t) => { msg.textContent = t; swapIn(msg); };
+  const swapIn = (el) => !reduced() && el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+  let ready = false; // true once an update has been found and the button offers to install it
+
+  btn.onclick = async () => {
+    btn.disabled = true;
+    if (!ready) {
+      say("Checking…");
+      try {
+        const r = await fetch("api/update");
+        const res = await r.json();
+        if (!r.ok) throw new Error(res.error);
+        if (!res.available) { say("You have the latest version."); btn.disabled = false; return; }
+        ready = true;
+        say("A new version is available.");
+        btn.innerHTML = `${icon("upload")} Update now`;
+        btn.classList.add("primary");
+      } catch (e) {
+        say("Couldn't check for updates. Are you online? " + (e.message || ""));
+      }
+      btn.disabled = false;
+      return;
+    }
+    say("Updating… this takes a few seconds.");
+    try {
+      await flush(); // save anything pending before the server restarts
+      const r = await fetch("api/update", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const res = await r.json();
+      if (!r.ok) throw new Error(res.error);
+      if (res.restartManually) {
+        say("Updated. Close the app's window, start it again, then reload this page.");
+        return;
+      }
+      say("Updated. Reloading…");
+      if (res.restarting) await new Promise((ok) => setTimeout(ok, 1200));
+      // wait until the (restarted) server answers, then load the new version
+      for (let i = 0; i < 30; i++) {
+        try { if ((await fetch("api/progress", { cache: "no-store" })).ok) break; } catch {}
+        await new Promise((ok) => setTimeout(ok, 500));
+      }
+      location.reload();
+    } catch (e) {
+      say("Couldn't update: " + (e.message || "") + " Nothing in your data folder was changed.");
+      btn.disabled = false;
     }
   };
 }

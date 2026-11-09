@@ -1,12 +1,15 @@
 // Practice session timer, session log and activity heatmap.
-import { course, state, save, today, uid, currentWeek, weekState, minutesOn, thisWeekStats } from "./store.js";
+import { course, state, save, today, uid, currentWeek, weekState, minutesOn, thisWeekStats, planBlocks, planMinutes, isRest } from "./store.js";
 import { esc, icon, fmtMin } from "./ui.js";
+import { swap, pop, toast } from "./motion.js";
 
 // Timer state lives at module level so it keeps running while you browse other pages.
 export const timer = {
   running: false,
   block: 0,
-  remaining: course.cur ? course.cur.dailyBlocks[0].minutes * 60 : 0,
+  plan: "full",
+  blocks: [], // the chosen plan's blocks, set by resetTimer()
+  remaining: 0,
   elapsed: 0, // seconds actually practised this session
   started: false,
   last: 0,
@@ -17,12 +20,11 @@ const listeners = new Set();
 export const onTick = (fn) => listeners.add(fn);
 const emit = () => listeners.forEach((fn) => fn());
 
-function blocks() {
-  return course.cur.dailyBlocks;
-}
-export function resetTimer() {
+const blocks = () => timer.blocks;
+export function resetTimer(plan = timer.plan) {
   stop();
-  Object.assign(timer, { running: false, block: 0, remaining: blocks()[0].minutes * 60, elapsed: 0, started: false });
+  const bl = planBlocks(plan);
+  Object.assign(timer, { running: false, plan, blocks: bl, block: 0, remaining: bl[0].minutes * 60, elapsed: 0, started: false });
   emit();
 }
 function loop() {
@@ -91,12 +93,19 @@ export const clock = (s) => `${Math.floor(Math.max(0, s) / 60)}:${String(Math.ma
 function logSession(minutes, date = today(), note = "") {
   if (!(minutes > 0)) return;
   state.sessions.push({ id: uid(), date, minutes: Math.round(minutes), week: timer.week || currentWeek().id, note });
+  state.rest = state.rest.filter((d) => d !== date); // drawing on a rest day un-rests it
   save();
 }
 
 // ===================== VIEW =====================
 let unsub = null;
-export function practice(root) {
+const DONE_LINES = {
+  full: "Session complete. That's a full day of drawing.",
+  short: "Short session done. Busy days count too.",
+  quick: "Twenty minutes, done. Your hand kept moving today, and that's the point.",
+};
+export function practice(root, planArg) {
+  if (planArg && !timer.started && planArg !== timer.plan && (course.cur.sessionPlans || []).some((p) => p.id === planArg)) resetTimer(planArg);
   const w = currentWeek();
   timer.week = w.id;
   const st = w.stage;
@@ -104,15 +113,21 @@ export function practice(root) {
   const studyItems = w.study.filter((_, i) => !ws.study[i]);
   const instr = (b) => (b.id === "study" ? (studyItems[0] || w.study[0]) : st.daily[b.id]);
 
+  const plans = course.cur.sessionPlans || [];
+  let shown = null; // which block (or "done") was on screen last, to animate only real changes
   const render = () => {
     const b = blocks()[timer.block];
     const finished = timer.started && !timer.running && timer.remaining === 0;
     const el = root.querySelector("#timer");
     if (!el) return;
+    const blockPct = finished ? 100 : Math.round((1 - timer.remaining / (b.minutes * 60)) * 1000) / 10;
     el.innerHTML = `
       <div class="eyebrow">Week ${w.n} · ${esc(w.title)}</div>
-      <div class="clock">${finished ? "Done!" : clock(timer.remaining)}</div>
-      <div class="blk">${finished ? "Session complete. Great work." : esc(b.label)}</div>
+      ${!timer.started && plans.length > 1 ? `<div class="plan-pick" role="radiogroup" aria-label="Session length">${plans.map((p) => `<button role="radio" aria-checked="${p.id === timer.plan}" class="${p.id === timer.plan ? "on" : ""}" data-plan="${p.id}">${esc(p.label)}<span>${fmtMin(planMinutes(p.id))}</span></button>`).join("")}</div>
+        <p class="plan-desc">${esc(plans.find((p) => p.id === timer.plan)?.desc || "")}</p>` : ""}
+      <div class="clock">${finished ? "Done" : clock(timer.remaining)}</div>
+      ${timer.started && !finished ? `<div class="block-bar ${timer.running ? "" : "paused"}"><span style="width:${blockPct}%"></span></div>` : ""}
+      <div class="blk">${finished ? esc(DONE_LINES[timer.plan] || DONE_LINES.full) : esc(b.label)}</div>
       <p class="instr">${finished ? "" : esc(instr(b))}</p>
       ${b.id === "gesture" && !finished ? `<p style="margin-top:12px"><a class="btn small" href="https://line-of-action.com" target="_blank" rel="noopener">${icon("ext")} Open Line of Action</a></p>` : ""}
       ${b.id === "study" && !finished ? `<p style="margin-top:12px"><a class="btn small" href="#/week/${w.id}">See this week's exercises</a></p>` : ""}
@@ -121,19 +136,32 @@ export function practice(root) {
         <button class="btn" data-t="skip">${icon("next")} Next block</button>`}
         ${timer.started ? `<button class="btn" data-t="log">${icon("check")} Finish & log ${fmtMin(Math.max(1, Math.round(timer.elapsed / 60)))}</button>` : ""}
       </div>
-      <div class="timer-steps">${blocks().map((x, i) => `<div class="${i === timer.block && !finished ? "on" : i < timer.block || finished ? "past" : ""}">${esc(x.label)}<br><span class="small">${x.minutes} min</span></div>`).join("")}</div>`;
+      <div class="timer-steps" style="grid-template-columns:repeat(${blocks().length},1fr)">${blocks().map((x, i) => `<div class="${i === timer.block && !finished ? "on" : i < timer.block || finished ? "past" : ""}">${esc(x.label)}<br><span class="small">${x.minutes} min</span></div>`).join("")}</div>`;
     el.querySelectorAll("[data-t]").forEach((btn) => {
       btn.onclick = () => {
         const a = btn.dataset.t;
         if (a === "toggle") timer.running ? (stop(), emit()) : start();
         if (a === "skip") skip();
         if (a === "log") {
+          const m = Math.max(1, Math.round(timer.elapsed / 60));
           logSession(timer.elapsed / 60);
           resetTimer();
           practice(root);
+          toast(`${icon("done")}<span>${fmtMin(m)} logged. Nice work today.</span>`);
         }
       };
     });
+    el.querySelectorAll("[data-plan]").forEach((btn) => {
+      btn.onclick = () => { resetTimer(btn.dataset.plan); history.replaceState(null, "", "#/practice/" + btn.dataset.plan); };
+    });
+    const now = finished ? "done" : timer.plan + timer.block;
+    if (shown !== null && now !== shown) {
+      swap(el.querySelector(".clock"));
+      swap(el.querySelector(".blk"));
+      swap(el.querySelector(".instr"));
+      pop(el.querySelector(".timer-steps .on"), 1.06);
+    }
+    shown = now;
   };
 
   const tw = thisWeekStats();
@@ -156,7 +184,7 @@ export function practice(root) {
       <div class="card pad stack">
         <h2>Last 26 weeks</h2>
         <div class="heat">${heat()}</div>
-        <div class="small faint">Each square is a day. Darker = longer session.</div>
+        <div class="small faint">Each dot is a day. Darker means a longer session, and a ring is a day off. Any amount counts.</div>
       </div>
     </div>
     <div class="card pad">
@@ -176,6 +204,7 @@ export function practice(root) {
     logSession(m, root.querySelector("#l-date").value || today(), root.querySelector("#l-note").value.trim());
     timer.week = save1;
     practice(root);
+    toast(`${icon("done")}<span>${fmtMin(m)} added to your log.</span>`);
   };
   root.querySelectorAll("[data-del]").forEach((b) => {
     b.onclick = () => {
@@ -195,8 +224,9 @@ function heat() {
   let out = "";
   for (const d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
     const m = minutesOn(today(d));
-    const lvl = m === 0 ? "" : m < 60 ? "l1" : m < 150 ? "l2" : "l3";
-    out += `<i class="${lvl}" title="${today(d)}: ${m ? fmtMin(m) : "no practice"}"></i>`;
+    const rest = !m && isRest(today(d));
+    const lvl = m === 0 ? (rest ? "rest" : "") : m < 60 ? "l1" : m < 150 ? "l2" : "l3";
+    out += `<i class="${lvl}" title="${today(d)}: ${m ? fmtMin(m) : rest ? "day off" : "no practice"}"></i>`;
   }
   return out;
 }

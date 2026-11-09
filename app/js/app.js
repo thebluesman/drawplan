@@ -2,6 +2,7 @@ import { course, state, load, save } from "./store.js";
 import { esc, icon, closeModal } from "./ui.js";
 import { welcome, home, courseView, weekView, gallery, portfolio, worksheets, resources, settings } from "./views.js";
 import { practice, timer, onTick, resetTimer, clock } from "./practice.js";
+import { enter, fill } from "./motion.js";
 
 const NAV = [
   ["home", "Home", "#/"],
@@ -60,9 +61,12 @@ function updatePill() {
   const el = document.getElementById("timer-pill");
   if (!el) return;
   const onPractice = location.hash.startsWith("#/practice");
-  el.innerHTML = timer.started && !onPractice
-    ? `<a class="timer-pill" href="#/practice"><span>${timer.running ? "Practising" : "Paused"} · ${esc(course.cur.dailyBlocks[timer.block].label)}</span><span class="t">${clock(timer.remaining)}</span></a>`
-    : "";
+  if (!timer.started || onPractice) return void (el.innerHTML = "");
+  // Build the pill once and only update its text, so the "live" dot's pulse isn't restarted every second.
+  if (!el.firstElementChild) el.innerHTML = `<a class="timer-pill" href="#/practice"><span><i class="live"></i><span data-s></span></span><span class="t" data-t></span></a>`;
+  el.firstElementChild.classList.toggle("paused", !timer.running);
+  el.querySelector("[data-s]").textContent = `${timer.running ? "Drawing" : "Paused"} · ${timer.blocks[timer.block].label}`;
+  el.querySelector("[data-t]").textContent = clock(timer.remaining);
 }
 
 function route() {
@@ -81,18 +85,25 @@ function route() {
   switch (key) {
     case "course": courseView(page); break;
     case "week": weekView(page, arg); break;
-    case "practice": practice(page); break;
+    case "practice": practice(page, arg); break;
     case "gallery": gallery(page, arg || "all"); break;
     case "portfolio": portfolio(page); break;
     case "worksheets": worksheets(page, arg); break;
     case "resources": resources(page); break;
-    case "settings": settings(page, () => { applyTheme(); }); break;
+    case "settings": settings(page, () => { applyTheme(); }, () => welcome(document.getElementById("app"), () => { history.replaceState(null, "", "#/"); go(); })); break;
     default: home(page);
   }
   updatePill();
+  enter(page);
+  fill(page);
   const anchor = raw.split("#")[1];
   if (anchor) document.getElementById(anchor)?.scrollIntoView({ block: "start" });
   else window.scrollTo(0, 0);
+}
+
+function go() {
+  shell();
+  route();
 }
 
 async function boot() {
@@ -108,11 +119,7 @@ async function boot() {
   applyTheme();
   resetTimer();
   onTick(updatePill);
-  const go = () => {
-    shell();
-    window.addEventListener("hashchange", route);
-    route();
-  };
+  window.addEventListener("hashchange", () => document.getElementById("page") && route());
   if (!state.settings.name) welcome(app, go);
   else go();
 }
