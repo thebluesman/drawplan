@@ -3,3 +3,6 @@
 /.version
 .DS_Store
 __pycache__/
+
+# One-page plan overview (kept locally)
+learning-to-draw.pdf
