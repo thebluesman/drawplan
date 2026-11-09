@@ -132,7 +132,8 @@ def main():
         print(f"Couldn't update: {e}")
         print("Check you're online and try again. Your data folder was not touched.")
         return 1
-    print(f"Updated {len(res['files'])} files.")
+    n = len(res["files"])
+    print(f"Updated {n} file{'' if n == 1 else 's'}.")
     print("\nDone. If the app is open, close its window and start it again, then reload the browser.")
     return 0
 
