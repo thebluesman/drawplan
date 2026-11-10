@@ -31,6 +31,16 @@ While the app is running, any phone or tablet on the same Wi-Fi can use it too. 
 
 The first time, macOS may ask whether Python can accept incoming connections. Click **Allow**, or phones can't connect.
 
+While the app is running, the Mac won't go to sleep on its own (a sleeping Mac can't answer the phone). The display still turns off as usual. Once the app stops, the Mac sleeps normally again. Choosing **Apple menu → Sleep** still puts it to sleep.
+
+To keep the app available all the time, also go to **System Settings → Energy** and turn on **Prevent automatic sleeping when the display is off**.
+
+### Start automatically (Mac)
+
+Double-click `start-automatically.command` once. From then on the app starts by itself whenever you log in and runs in the background, with no window to keep open. If it ever stops, it starts again. Open it in the browser at <http://127.0.0.1:4817> as usual (double-clicking `start.command` just opens the browser). If macOS asks whether Python can accept incoming connections or open files in this folder, click **Allow**.
+
+To turn it off, double-click `start-automatically.command` again. If you move the app's folder, run it again so it finds the new place. If something seems wrong, the log is at `~/Library/Logs/Sketchbook Academy.log`.
+
 There's no password, so anyone on the same Wi-Fi can open it. That's fine at home. On shared or public Wi-Fi, start it with `python3 server.py --local-only` to keep it to the computer.
 
 ## Updating

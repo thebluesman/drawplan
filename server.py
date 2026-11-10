@@ -20,6 +20,7 @@ import os
 import re
 import shutil
 import socket
+import subprocess
 import sys
 import threading
 import time
@@ -53,6 +54,19 @@ UPDATE_CACHE_SECS = 60 * 60
 RESTART_ARGV = None  # how to start this server again after an update (set in main)
 PORT = None  # the port actually in use (set in main)
 LOCAL_ONLY = False
+
+
+def keep_awake():
+    """On a Mac, stop the computer idle-sleeping while the server runs, so a phone can still reach it.
+    The display still turns off. caffeinate exits by itself when this process does."""
+    if sys.platform != "darwin" or os.environ.get("SKETCHBOOK_AWAKE"):
+        return
+    try:
+        subprocess.Popen(["caffeinate", "-i", "-w", str(os.getpid())], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError:
+        return
+    # Restarting after an update (os.execv) keeps the same pid, so the caffeinate already running carries on.
+    os.environ["SKETCHBOOK_AWAKE"] = "1"
 
 
 def lan_addresses():
@@ -353,6 +367,8 @@ def main():
     global RESTART_ARGV, PORT, LOCAL_ONLY
     PORT, LOCAL_ONLY = port, args.local_only
     RESTART_ARGV = [sys.executable, os.path.abspath(__file__), "--port", str(port), "--no-browser"] + (["--demo"] if args.demo else []) + (["--local-only"] if args.local_only else [])
+    if not args.local_only:
+        keep_awake()  # phones can't reach a sleeping Mac
     url = f"http://127.0.0.1:{port}"
     print(f"Sketchbook Academy{' (DEMO DATA)' if args.demo else ''} is running at {url}")
     lan = lan_addresses()
