@@ -1,8 +1,9 @@
 import { course, state, load, save } from "./store.js";
 import { esc, icon, closeModal } from "./ui.js";
 import { welcome, home, courseView, weekView, gallery, portfolio, worksheets, resources, settings } from "./views.js";
-import { practice, timer, onTick, resetTimer, clock } from "./practice.js";
-import { enter, fill } from "./motion.js";
+import { practice, timer, onTick, restoreTimer, clock } from "./practice.js";
+import { enter, fill, toast } from "./motion.js";
+import { startUpdateChecks } from "./updates.js";
 
 const NAV = [
   ["home", "Home", "#/"],
@@ -41,21 +42,40 @@ function shell() {
   app.innerHTML = `<div class="shell">
     <aside class="sidebar" id="sidebar">
       <a class="brand" href="#/"><div class="brand-mark">${icon("pencil")}</div><div><div class="brand-name">${esc(course.cur.title)}</div><div class="brand-sub">Drawing for animation</div></div></a>
-      <nav class="nav">${NAV.map(([k, label, href]) => `<a href="${href}" data-nav="${k}">${icon(k)}<span>${label}</span></a>`).join("")}</nav>
+      <nav class="nav">${NAV.map(([k, label, href]) => `<a href="${href}" data-nav="${k}">${k === "settings" ? `<span class="upd-host">${icon(k)}<i class="upd-dot"></i></span>` : icon(k)}<span>${label}</span></a>`).join("")}</nav>
       <div id="timer-pill"></div>
       ${state.settings.demo ? '<div class="demo-flag">Demo data. Nothing here is real progress.</div>' : ""}
       <button class="theme-btn" data-theme-btn></button>
       <div class="sidebar-foot">${esc(state.settings.name ? state.settings.name + "'s sketchbook" : "")}</div>
     </aside>
+    <div class="scrim" id="scrim"></div>
     <div class="main">
-      <div class="topbar"><button class="icon-btn" id="menu" aria-label="Menu">${icon("menu")}</button><b style="font-family:var(--font-display);flex:1">${esc(course.cur.title)}</b>${state.settings.demo ? '<span class="badge accent">Demo</span>' : ""}<button class="icon-btn" data-theme-btn data-compact aria-label="Change theme"></button></div>
+      <div class="topbar"><button class="icon-btn upd-host" id="menu" aria-label="Menu" aria-controls="sidebar" aria-expanded="false">${icon("menu")}<i class="upd-dot"></i></button><b style="font-family:var(--font-display);flex:1">${esc(course.cur.title)}</b>${state.settings.demo ? '<span class="badge accent">Demo</span>' : ""}<button class="icon-btn" data-theme-btn data-compact aria-label="Change theme"></button></div>
       <main class="page" id="page"></main>
     </div>
   </div>`;
-  document.getElementById("menu").onclick = () => document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("menu").onclick = () => setDrawer(!document.getElementById("sidebar").classList.contains("open"));
+  document.getElementById("scrim").onclick = () => setDrawer(false);
   document.querySelectorAll("[data-theme-btn]").forEach((b) => (b.onclick = cycleTheme));
   applyTheme();
 }
+
+// The sidebar is a drawer on small screens: open it from the menu button; tap outside or press Escape to close.
+function setDrawer(open) {
+  document.getElementById("sidebar")?.classList.toggle("open", open);
+  document.getElementById("menu")?.setAttribute("aria-expanded", String(open));
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setDrawer(false); });
+
+// Touch screens never show title tooltips, so tapping a non-interactive element that has one
+// (a heatmap day, the schedule badge) shows the text as a toast instead.
+const touch = matchMedia("(hover: none)");
+document.addEventListener("click", (e) => {
+  if (!touch.matches) return;
+  const el = e.target.closest("[title]");
+  if (!el || el.closest("a, button, input, select, label, iframe")) return;
+  toast(`<span>${esc(el.title)}</span>`);
+});
 
 function updatePill() {
   const el = document.getElementById("timer-pill");
@@ -71,7 +91,7 @@ function updatePill() {
 
 function route() {
   closeModal();
-  document.getElementById("sidebar")?.classList.remove("open");
+  setDrawer(false);
   const raw = location.hash.replace(/^#/, "") || "/";
   const path = raw.split("#")[0];
   const [, section = "", arg] = path.split("/");
@@ -117,8 +137,9 @@ async function boot() {
     return;
   }
   applyTheme();
-  resetTimer();
+  restoreTimer();
   onTick(updatePill);
+  startUpdateChecks();
   window.addEventListener("hashchange", () => document.getElementById("page") && route());
   if (!state.settings.name) welcome(app, go);
   else go();

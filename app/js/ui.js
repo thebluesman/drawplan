@@ -175,7 +175,7 @@ export function lightbox(u, rerender) {
   del.onclick = async () => {
     if (del.dataset.confirm !== "1") {
       del.dataset.confirm = "1";
-      del.innerHTML = `${icon("trash")} Click again to delete`;
+      del.innerHTML = `${icon("trash")} ${matchMedia("(hover: none)").matches ? "Tap" : "Click"} again to delete`;
       return;
     }
     await removeUpload(u.id);
@@ -208,7 +208,10 @@ export function bindTiles(root, rerender) {
 }
 
 /** A drop zone / file picker. `meta` is merged into every upload record. */
-export function dropzone(label = "Drop photos of your drawings here, or click to choose", multiple = true) {
+const DROP_LABEL = matchMedia("(hover: none)").matches
+  ? "Take a photo of your drawing, or choose one" // phones and tablets: the picker offers the camera
+  : "Drop photos of your drawings here, or click to choose";
+export function dropzone(label = DROP_LABEL, multiple = true) {
   return `<label class="dropzone" data-drop>
     <input type="file" accept="image/*" ${multiple ? "multiple" : ""}>
     <div class="row" style="justify-content:center">${icon("upload")} <span>${esc(label)}</span></div>

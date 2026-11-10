@@ -23,7 +23,15 @@ You need Python 3.8 or newer. There's nothing else to install.
 
 The browser opens at <http://127.0.0.1:4817>. Keep the terminal window open while using the app, and close it to stop.
 
-The app only listens on this computer (`127.0.0.1`). Videos play from YouTube, so you need to be online for those.
+Videos play from YouTube, so you need to be online for those.
+
+### On a phone or tablet
+
+While the app is running, any phone or tablet on the same Wi-Fi can use it too. The start window prints the address (something like `http://Mac-Studio.local:4817`), and so does **Settings → On your phone**. Type it into the phone's browser and add it to the home screen. Everything is still saved on the computer, so the computer needs to be on with the app running.
+
+The first time, macOS may ask whether Python can accept incoming connections. Click **Allow**, or phones can't connect.
+
+There's no password, so anyone on the same Wi-Fi can open it. That's fine at home. On shared or public Wi-Fi, start it with `python3 server.py --local-only` to keep it to the computer.
 
 ## Updating
 

@@ -99,9 +99,9 @@ p { margin: 0; }
 .ph { flex: none; }
 
 /* ---------- layout ---------- */
-.shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+.shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; min-height: 100dvh; }
 .sidebar {
-  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  position: sticky; top: 0; height: 100vh; height: 100dvh; overflow-y: auto;
   border-right: 1px solid var(--line); padding: 28px 16px 20px; display: flex; flex-direction: column; gap: 4px;
   background: var(--paper);
 }
@@ -117,6 +117,11 @@ p { margin: 0; }
 .nav a:hover { background: var(--paper-2); color: var(--ink); }
 .nav a.active { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); font-weight: 700; }
 .nav svg { width: 18px; height: 18px; flex: none; }
+/* a dot on the Settings icon (and the mobile menu button) when a new version is on GitHub */
+.upd-host { position: relative; display: inline-grid; place-items: center; flex: none; }
+.upd-dot { display: none; position: absolute; top: -2px; right: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--paper); }
+.icon-btn .upd-dot { top: 6px; right: 6px; }
+.has-update .upd-dot { display: block; }
 .sidebar-foot { padding: 12px 14px 0; font-size: 12px; color: var(--ink-3); }
 .timer-pill {
   margin: 14px 2px 0; padding: 12px 16px; border-radius: 999px; background: var(--ink-band); color: var(--on-band);
@@ -131,6 +136,7 @@ p { margin: 0; }
 .main { min-width: 0; }
 .page { max-width: 1120px; margin: 0 auto; padding: 48px 40px 96px; }
 .topbar { display: none; }
+.scrim { display: none; }
 .save-state { position: fixed; right: 20px; bottom: 20px; font-size: 13px; padding: 8px 16px; border-radius: 999px; background: var(--ink-band); color: var(--on-band); box-shadow: var(--shadow-float); opacity: 0; transition: opacity .3s; pointer-events: none; }
 .save-state.show { opacity: 1; }
 .save-state.err { color: #fff; background: #e33a22; opacity: 1; pointer-events: auto; }
@@ -138,7 +144,8 @@ p { margin: 0; }
 @media (max-width: 860px) {
   .shell { grid-template-columns: 1fr; }
   .sidebar { display: none; }
-  .sidebar.open { display: flex; position: fixed; inset: 0 22% 0 0; z-index: 50; height: 100vh; box-shadow: var(--shadow-float); }
+  .sidebar.open { display: flex; position: fixed; inset: 0 22% 0 0; z-index: 50; height: 100vh; height: 100dvh; box-shadow: var(--shadow-float); overscroll-behavior: contain; }
+  .sidebar.open + .scrim { display: block; position: fixed; inset: 0; z-index: 45; background: rgba(25, 25, 28, .5); animation: fade-in .2s ease-out; }
   .topbar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--paper); z-index: 40; }
   .page { padding: 24px 16px 72px; }
 }
@@ -289,7 +296,9 @@ label.field .hint { font-weight: 400; color: var(--ink-3); font-size: 13px; }
 .slot { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--ink-2); }
 .slot .slot-empty { aspect-ratio: 1; border: 1px dashed var(--line-2); border-radius: var(--radius-md); display: grid; place-items: center; color: var(--ink-3); cursor: pointer; text-align: center; padding: 8px; font-size: 13px; background: var(--paper); }
 .slot .slot-empty:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
-.weeknav { display: flex; justify-content: space-between; gap: 12px; margin-top: 40px; }
+.weeknav { display: flex; justify-content: space-between; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
+.weeknav .btn { white-space: normal; line-height: 1.3; max-width: 100%; }
+.weeknav .btn:last-child { margin-left: auto; text-align: right; }
 
 /* ---------- practice ---------- */
 /* the timer lives in the ink world */
@@ -335,7 +344,7 @@ table.log tr:last-child td { border-bottom: 0; }
 .modal-box .video { aspect-ratio: 16/9; background: #000; }
 .modal-box .video #yt-player, .modal-box .video iframe { width: 100%; height: 100%; border: 0; display: block; }
 .modal-bar { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.lightbox img { max-height: 78vh; width: auto; margin: 0 auto; background: #000; }
+.lightbox img { max-height: 78vh; max-height: 78dvh; width: auto; margin: 0 auto; background: #000; }
 .lightbox .modal-box { width: auto; max-width: min(1200px, 100%); }
 
 /* ---------- onboarding ---------- */
@@ -405,3 +414,36 @@ a.card:hover, .video-card:hover { border-color: var(--line-2); }
 .kbd { font-size: 12px; border: 1px solid var(--line-2); border-radius: 6px; padding: 0 5px; }
 .hide { display: none !important; }
 .stack > .btn, .stack-s > .btn { align-self: flex-start; }
+
+/* ---------- phones ---------- */
+/* iOS Safari zooms into any text field under 16px when it's tapped (after .input above, so this wins) */
+@media (max-width: 860px) { .input, textarea.input, select.input { font-size: 16px; } }
+@media (max-width: 640px) {
+  /* recent sessions: a stacked list instead of a squeezed table */
+  table.log, table.log tbody { display: block; }
+  table.log tr:first-child { display: none; }
+  table.log tr { display: grid; grid-template-columns: auto auto 1fr auto; column-gap: 14px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  table.log tr:last-child { border-bottom: 0; }
+  table.log td { padding: 0; border: 0; white-space: nowrap; }
+  table.log td:nth-child(3):not(:empty)::before { content: "Week "; }
+  table.log td:nth-child(4) { grid-column: 1 / 4; grid-row: 2; white-space: normal; }
+  table.log td:nth-child(4):empty { display: none; }
+  table.log td:nth-child(5) { grid-column: 4; grid-row: 1 / 3; }
+  /* session length picker: three equal choices, length under the name */
+  .plan-pick { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 22px; }
+  .plan-pick button { padding: 8px 6px; border-radius: 18px; line-height: 1.25; }
+  .plan-pick button span { display: block; margin-left: 0; }
+}
+/* touch screens: fingers need bigger targets than a mouse pointer (44px, Apple's guideline) */
+@media (pointer: coarse) {
+  .icon-btn { width: 44px; height: 44px; }
+  .btn.small { padding-top: 12px; padding-bottom: 12px; }
+  .toggle { min-height: 44px; }
+  .toggle input, .check input { width: 22px; height: 22px; }
+  .nav a { padding-top: 12px; padding-bottom: 12px; }
+  .heat { grid-template-rows: repeat(7, 18px); grid-auto-columns: 18px; }
+  .heat i { width: 18px; height: 18px; }
+}
+/* iOS Safari only sends taps on plain elements to a document click listener when they look clickable,
+   so the tap-for-title toast (app.js) needs this on anything with a title */
+@media (hover: none) { [title] { cursor: pointer; } }

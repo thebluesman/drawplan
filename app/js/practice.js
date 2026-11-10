@@ -18,7 +18,50 @@ export const timer = {
 };
 const listeners = new Set();
 export const onTick = (fn) => listeners.add(fn);
-const emit = () => listeners.forEach((fn) => fn());
+const emit = () => { persist(); listeners.forEach((fn) => fn()); };
+
+// The timer is kept per device in localStorage, so a phone browser that reloads the tab after the
+// screen was off (or a closed tab) picks the session up where it was. Older than 12 hours is dropped.
+const SAVED = "sketchbook-timer";
+const KEEP = ["running", "block", "plan", "remaining", "elapsed", "started", "last", "week"];
+function persist() {
+  try {
+    if (timer.started) localStorage.setItem(SAVED, JSON.stringify(Object.fromEntries(KEEP.map((k) => [k, timer[k]]))));
+    else localStorage.removeItem(SAVED);
+  } catch {}
+}
+/** Called once at startup in place of resetTimer(): restores a session in progress, if there is one. */
+export function restoreTimer() {
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(SAVED)); } catch {}
+  resetTimer(); // (this clears the saved copy, so it was read first)
+  if (!saved?.started || !(Date.now() - saved.last < 12 * 3600e3)) return persist();
+  const bl = planBlocks(saved.plan);
+  if (!bl?.[saved.block]) return persist();
+  Object.assign(timer, saved, { blocks: bl, running: false });
+  if (saved.running) {
+    timer.running = true;
+    timer.tick = setInterval(loop, 250);
+    loop(); // catch up on the time that passed while the page was gone
+    lockScreenOn();
+  }
+  emit();
+}
+
+// Keep the screen on while the timer runs. Browsers only allow this on a secure page (the computer
+// itself at 127.0.0.1); over the home network on a phone it isn't available, and the timer catches up instead.
+let wakeLock = null;
+async function lockScreenOn() {
+  try { wakeLock = (await navigator.wakeLock?.request("screen")) || null; } catch { wakeLock = null; }
+}
+function releaseScreen() {
+  wakeLock?.release().catch(() => {});
+  wakeLock = null;
+}
+document.addEventListener("visibilitychange", () => {
+  // The lock is dropped whenever the page is hidden; take it again on return.
+  if (document.visibilityState === "visible" && timer.running) lockScreenOn();
+});
 
 const blocks = () => timer.blocks;
 export function resetTimer(plan = timer.plan) {
@@ -29,13 +72,18 @@ export function resetTimer(plan = timer.plan) {
 }
 function loop() {
   const now = Date.now();
-  const dt = Math.round((now - timer.last) / 1000);
+  let dt = Math.round((now - timer.last) / 1000);
   if (dt < 1) return;
+  const away = dt > 5; // the page was asleep (screen off, tab in the background), not a normal tick
   timer.last += dt * 1000;
-  timer.remaining -= dt;
-  timer.elapsed += dt;
-  if (timer.remaining <= 0) {
-    chime();
+  const from = timer.block;
+  // After the screen was off (or the page asleep), dt can cover several blocks: carry the time over.
+  while (dt > 0 && timer.running) {
+    const step = Math.min(dt, timer.remaining);
+    timer.remaining -= step;
+    timer.elapsed += step;
+    dt -= step;
+    if (timer.remaining > 0) break;
     if (timer.block < blocks().length - 1) {
       timer.block++;
       timer.remaining = blocks()[timer.block].minutes * 60;
@@ -43,6 +91,12 @@ function loop() {
       timer.remaining = 0;
       stop();
     }
+  }
+  if (timer.block !== from || !timer.running) chime();
+  if (away && (timer.block !== from || !timer.running)) {
+    // The chime couldn't be heard while the page was asleep, so say what changed.
+    const done = blocks().slice(from, timer.running ? timer.block : timer.block + 1).map((b) => esc(b.label)).join(", ");
+    toast(`${icon("timer")}<span>While you were away: ${done} finished.${timer.running ? ` Now: ${esc(blocks()[timer.block].label)}.` : ""}</span>`);
   }
   emit();
 }
@@ -52,12 +106,14 @@ function start() {
   timer.started = true;
   timer.last = Date.now();
   timer.tick = setInterval(loop, 250);
+  lockScreenOn();
   emit();
 }
 function stop() {
   timer.running = false;
   clearInterval(timer.tick);
   timer.tick = null;
+  releaseScreen();
 }
 function skip() {
   if (timer.block < blocks().length - 1) {
@@ -184,7 +240,7 @@ export function practice(root, planArg) {
       <div class="card pad stack">
         <h2>Last 26 weeks</h2>
         <div class="heat">${heat()}</div>
-        <div class="small faint">Each dot is a day. Darker means a longer session, and a ring is a day off. Any amount counts.</div>
+        <div class="small faint">Each dot is a day. Darker means a longer session, and a ring is a day off. Any amount counts. ${matchMedia("(hover: none)").matches ? "Tap" : "Hover over"} a dot to see that day.</div>
       </div>
     </div>
     <div class="card pad">
@@ -193,6 +249,8 @@ export function practice(root, planArg) {
     </div>
   </div>`;
   render();
+  const hm = root.querySelector(".heat");
+  hm.scrollLeft = hm.scrollWidth; // on a phone the 26 weeks don't fit: start at this week, scroll back for older ones
   if (unsub) listeners.delete(unsub);
   unsub = render;
   listeners.add(render);

@@ -4,6 +4,7 @@ import {
   planMinutes, isRest, setRest, minutesOn,
 } from "./store.js";
 import { reduced, draw, toast, fill, pop } from "./motion.js";
+import { update, checkForUpdate } from "./updates.js";
 import {
   esc, icon, stageColor, fmtMin, videoMinutes, playVideo, resumeAt, fmtClock, tile, bindTiles, dropzone, bindDrop, slot, bindSlots, kindLabel,
 } from "./ui.js";
@@ -553,6 +554,11 @@ export function settings(root, rerenderShell, replayIntro) {
       <label class="btn">Restore from a backup<input type="file" id="import" accept="application/json" hidden></label></div>
       <div class="small faint" id="import-msg"></div>
     </div>
+    <div class="card pad stack" id="phone" hidden>
+      <h2>On your phone</h2>
+      <p class="muted small">On a phone or tablet connected to the same Wi-Fi, open this address in the browser. The app has to be running on this computer.</p>
+      <div class="stack-s" id="phone-urls"></div>
+    </div>
     <div class="card pad stack">
       <h2>Updates</h2>
       <p class="muted small">Get the latest version of the app. Your progress and drawings stay as they are.</p>
@@ -575,6 +581,11 @@ export function settings(root, rerenderShell, replayIntro) {
     a.click();
   };
   bindUpdates(root);
+  fetch("api/address").then((r) => r.json()).then(({ lan }) => {
+    if (!lan?.length || !root.querySelector("#phone")) return;
+    root.querySelector("#phone-urls").innerHTML = lan.map((u) => `<b style="font-size:17px;overflow-wrap:anywhere">${esc(u)}</b>`).join("");
+    root.querySelector("#phone").hidden = false;
+  }).catch(() => {});
   root.querySelector("#import").onchange = async (e) => {
     const msg = root.querySelector("#import-msg");
     try {
@@ -599,20 +610,23 @@ function bindUpdates(root) {
   const say = (t) => { msg.textContent = t; swapIn(msg); };
   const swapIn = (el) => !reduced() && el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
   let ready = false; // true once an update has been found and the button offers to install it
+  const offer = () => {
+    ready = true;
+    msg.textContent = "A new version is available.";
+    btn.innerHTML = `${icon("upload")} Update now`;
+    btn.classList.add("primary");
+  };
+  if (update.available) offer(); // the background check already found one (the dot on the Settings icon)
 
   btn.onclick = async () => {
     btn.disabled = true;
     if (!ready) {
       say("Checking…");
       try {
-        const r = await fetch("api/update");
-        const res = await r.json();
-        if (!r.ok) throw new Error(res.error);
+        const res = await checkForUpdate(true);
         if (!res.available) { say("You have the latest version."); btn.disabled = false; return; }
-        ready = true;
-        say("A new version is available.");
-        btn.innerHTML = `${icon("upload")} Update now`;
-        btn.classList.add("primary");
+        offer();
+        swapIn(msg);
       } catch (e) {
         say("Couldn't check for updates. Are you online? " + (e.message || ""));
       }

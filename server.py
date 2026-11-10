@@ -6,6 +6,11 @@ uploaded drawings in ./data. Uses only the Python standard library.
 
     python3 server.py            # opens http://127.0.0.1:4817 in the browser
     python3 server.py --port 9000 --no-browser
+    python3 server.py --local-only   # only this computer, not phones on the same Wi-Fi
+
+By default the app is also reachable from other devices on the same network (a phone in another
+room), at the address printed on start and shown in Settings. There's no password: anyone on the
+Wi-Fi can open it, which is fine on a home network.
 """
 
 import argparse
@@ -14,6 +19,7 @@ import mimetypes
 import os
 import re
 import shutil
+import socket
 import sys
 import threading
 import time
@@ -42,7 +48,31 @@ IMAGE_TYPES = {
 SAFE_NAME = re.compile(r"^[A-Za-z0-9._-]+$")
 
 _lock = threading.Lock()
+_update_cache = {"at": 0, "result": None}  # the app checks GitHub in the background; don't ask more than hourly
+UPDATE_CACHE_SECS = 60 * 60
 RESTART_ARGV = None  # how to start this server again after an update (set in main)
+PORT = None  # the port actually in use (set in main)
+LOCAL_ONLY = False
+
+
+def lan_addresses():
+    """Addresses a phone on the same network can use, e.g. ['http://Mac-Studio.local:4817', 'http://192.168.1.20:4817']."""
+    if LOCAL_ONLY or PORT is None:
+        return []
+    out = []
+    host = socket.gethostname()
+    if host.endswith(".local"):  # macOS's Bonjour name: keeps working when the router hands out a new IP
+        out.append(f"http://{host}:{PORT}")
+    try:
+        # Connecting a UDP socket sends nothing; it just picks the network interface that faces the router.
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("10.255.255.255", 1))
+            ip = s.getsockname()[0]
+        if not ip.startswith("127."):
+            out.append(f"http://{ip}:{PORT}")
+    except OSError:
+        pass  # no network
+    return out
 
 
 def set_data_dir(path):
@@ -143,7 +173,7 @@ class Handler(SimpleHTTPRequestHandler):
         return self.rfile.read(length)
 
     def same_origin(self):
-        """Reject writes from other websites (basic CSRF guard for a localhost app)."""
+        """Reject writes from other websites (basic CSRF guard; works the same from a phone on the LAN)."""
         origin = self.headers.get("Origin")
         if not origin:
             return True
@@ -160,11 +190,16 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.error_json(HTTPStatus.INTERNAL_SERVER_ERROR, f"Could not read progress: {e}")
         if path.startswith("/uploads/"):
             return self.serve_upload(unquote(path[len("/uploads/"):]))
+        if path == "/api/address":
+            return self.send_json({"lan": lan_addresses()})
         if path == "/api/update":
             import update
 
+            fresh = "fresh=1" in (urlparse(self.path).query or "")
             try:
-                return self.send_json(update.check())
+                if fresh or not _update_cache["result"] or time.time() - _update_cache["at"] > UPDATE_CACHE_SECS:
+                    _update_cache.update(at=time.time(), result=update.check())
+                return self.send_json(_update_cache["result"])
             except Exception as e:
                 return self.error_json(HTTPStatus.BAD_GATEWAY, f"Couldn't reach GitHub: {e}")
         return super().do_GET()
@@ -284,6 +319,7 @@ def main():
     parser.add_argument("--no-browser", action="store_true", help="Don't open the browser automatically")
     parser.add_argument("--demo", action="store_true", help="Run with sample data in demo-data/ (real data is untouched)")
     parser.add_argument("--reset-demo", action="store_true", help="With --demo: regenerate the sample data first")
+    parser.add_argument("--local-only", action="store_true", help="Only accept connections from this computer (no phones on the Wi-Fi)")
     args = parser.parse_args()
 
     if args.demo:
@@ -302,7 +338,7 @@ def main():
     httpd = None
     for port in range(args.port, args.port + 10):
         try:
-            httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
+            httpd = ThreadingHTTPServer(("127.0.0.1" if args.local_only else "0.0.0.0", port), Handler)
             break
         except OSError:
             if is_our_app(port):
@@ -314,10 +350,14 @@ def main():
     if httpd is None:
         print(f"Ports {args.port}-{args.port + 9} are all busy. Try: python3 server.py --port 5900")
         return
-    global RESTART_ARGV
-    RESTART_ARGV = [sys.executable, os.path.abspath(__file__), "--port", str(port), "--no-browser"] + (["--demo"] if args.demo else [])
+    global RESTART_ARGV, PORT, LOCAL_ONLY
+    PORT, LOCAL_ONLY = port, args.local_only
+    RESTART_ARGV = [sys.executable, os.path.abspath(__file__), "--port", str(port), "--no-browser"] + (["--demo"] if args.demo else []) + (["--local-only"] if args.local_only else [])
     url = f"http://127.0.0.1:{port}"
     print(f"Sketchbook Academy{' (DEMO DATA)' if args.demo else ''} is running at {url}")
+    lan = lan_addresses()
+    if lan:
+        print("On a phone or tablet on the same Wi-Fi, open: " + "  or  ".join(lan))
     print("Keep this window open while you use the app. Press Ctrl+C to stop.")
     if not args.no_browser:
         threading.Timer(0.6, lambda: webbrowser.open(url)).start()
