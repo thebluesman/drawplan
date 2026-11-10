@@ -1,6 +1,6 @@
 {
  "title": "Sketchbook Academy",
- "subtitle": "Drawing for Animation — a 12-month pencil course",
+ "subtitle": "Drawing for Animation: a 12-month pencil course",
  "hoursPerDay": 3,
  "daysPerWeek": 5,
  "dailyBlocks": [
@@ -59,26 +59,26 @@
  ],
  "benchmark": {
   "title": "Benchmark drawings",
-  "intro": "The same four drawings, repeated at the end of every stage. Don't look at your old ones until you've finished the new set — then compare them side by side in the Gallery.",
+  "intro": "The same four drawings, repeated at the end of every stage. Don't look at your old ones until you've finished the new set. Then compare them side by side in the Gallery.",
   "items": [
    {
     "id": "figure",
-    "label": "A figure in an action pose (jumping, throwing, running) — from imagination, 10 min",
+    "label": "A figure in an action pose (jumping, throwing, running), from imagination, 10 min",
     "short": "Action figure"
    },
    {
     "id": "room",
-    "label": "The room you're in, in perspective — from life, 20 min",
+    "label": "The room you're in, in perspective, from life, 20 min",
     "short": "Room in perspective"
    },
    {
     "id": "head",
-    "label": "A character's head in 3/4 view, showing three different expressions — 15 min",
+    "label": "A character's head in 3/4 view, showing three different expressions, 15 min",
     "short": "Head, 3 expressions"
    },
    {
     "id": "animal",
-    "label": "An animal from a photo (a cat, dog or horse) — 10 min",
+    "label": "An animal from a photo (a cat, dog or horse), 10 min",
     "short": "Animal"
    }
   ]
@@ -90,7 +90,7 @@
    "title": "Lines, Forms & Seeing",
    "months": "Months 1–2",
    "tagline": "Train your hand to make confident marks and your eye to see simple forms in everything.",
-   "why": "Every drawing in animation is built from simple forms drawn with confident lines. Your drawings aren't supposed to look good yet — they're supposed to teach you how to see.",
+   "why": "Every drawing in animation is built from simple forms drawn with confident lines. Your drawings aren't supposed to look good yet. Right now they're teaching you how to see.",
    "focus": [
     "Line control: straight lines, arcs, ellipses",
     "The five basic forms: sphere, cube, cylinder, cone, pyramid",
@@ -125,7 +125,7 @@
       },
       {
        "id": "f312sDwg770",
-       "note": "Peter Han, week 1 — lines, arcs, ellipses and warm-ups"
+       "note": "Peter Han, week 1: lines, arcs, ellipses and warm-ups"
       },
       {
        "id": "zHIsVVTIBoI",
@@ -134,7 +134,7 @@
       }
      ],
      "study": [
-      "Do the four benchmark drawings (below) first — before watching anything. Upload them.",
+      "Do the four benchmark drawings (below) first, before watching anything. Upload them.",
       "Peter Han's line exercises: 2 pages of straight lines connecting two dots, 1 page of arcs, 1 page of ellipses.",
       "Draw from the shoulder, not the wrist, for long lines. Fast and confident beats slow and wobbly."
      ],
@@ -161,7 +161,7 @@
       },
       {
        "id": "74HR59yFZ7Y",
-       "note": "Your first gesture lesson — this powers the daily gesture block"
+       "note": "Your first gesture lesson. It powers the daily gesture block"
       }
      ],
      "study": [
@@ -182,7 +182,7 @@
      "videos": [
       {
        "id": "0oFpESh9ANI",
-       "note": "Peter Han, week 2 — organic forms and contour lines"
+       "note": "Peter Han, week 2: organic forms and contour lines"
       },
       {
        "id": "h9qGMVRdn4Q"
@@ -209,7 +209,7 @@
      "videos": [
       {
        "id": "5r5AUbde5Tw",
-       "note": "Peter Han, week 3 — geometric forms, 1- & 2-point perspective, form and cast shadows"
+       "note": "Peter Han, week 3: geometric forms, 1- & 2-point perspective, form and cast shadows"
       },
       {
        "id": "PdtDtGBu-Dc"
@@ -229,7 +229,7 @@
      "id": "w05",
      "n": 5,
      "title": "Seeing: observation & proportion",
-     "goal": "Draw what's really there — measure, compare, simplify.",
+     "goal": "Draw what's really there: measure, compare, simplify.",
      "videos": [
       {
        "id": "gKijkM15Fso"
@@ -259,11 +259,11 @@
      "id": "w06",
      "n": 6,
      "title": "Seeing like an animator",
-     "goal": "Understand why animators care about the line of action, arcs and appeal — the reason behind everything in this course.",
+     "goal": "Understand why animators care about the line of action, arcs and appeal, the reason behind everything in this course.",
      "videos": [
       {
        "id": "uDqjIdI4bF4",
-       "note": "Watch for understanding — you don't need to animate yet"
+       "note": "Watch for understanding. You don't need to animate yet"
       },
       {
        "id": "6mrhW6REKNQ"
@@ -275,7 +275,7 @@
      "study": [
       "Collect 20 photos of people doing things (sports, dance). Draw just the line of action for each: one curved line.",
       "Turn 10 of those lines into 2-minute gestures.",
-      "Pick 3 principles from Alan Becker's series (e.g. arcs, squash & stretch, exaggeration) and sketch a tiny example of each — like a ball squashing as it lands."
+      "Pick 3 principles from Alan Becker's series (e.g. arcs, squash & stretch, exaggeration) and sketch a tiny example of each, like a ball squashing as it lands."
      ],
      "assignment": {
       "title": "Line-of-action page",
@@ -302,7 +302,7 @@
       }
      ],
      "study": [
-      "Go somewhere public (café, park, station). Spend one session drawing people in 30-second to 2-minute sketches. They will move — that's the point.",
+      "Go somewhere public (café, park, station). Spend one session drawing people in 30-second to 2-minute sketches. They will move, and that's the point.",
       "Simplify 5 complex objects (a bike, a plant, a chair) into 3–5 big shapes each.",
       "One page drawn with the pencil held far back from the tip, to force loose marks."
      ],
@@ -326,7 +326,7 @@
       }
      ],
      "study": [
-      "Redo the four benchmark drawings — without looking at week 1's first.",
+      "Redo the four benchmark drawings without looking at week 1's first.",
       "Then compare them in the Gallery. Write 3 things that improved and 1 to work on.",
       "Spend the rest of the week on whichever of weeks 1–7 felt weakest."
      ],
@@ -343,8 +343,8 @@
    "n": 2,
    "title": "Light, Value & the Body",
    "months": "Months 3–4",
-   "tagline": "Learn how light reveals form — and build the human body from simple shapes.",
-   "why": "Value is what makes a drawing read clearly from across a room — or on a screen for half a second. And the body built from simple shapes is the foundation of every animated character.",
+   "tagline": "Learn how light reveals form, and build the human body from simple shapes.",
+   "why": "Value is what makes a drawing read clearly from across a room, or on a screen for half a second. And the body built from simple shapes is the foundation of every animated character.",
    "focus": [
     "The 5 parts of light: highlight, midtone, core shadow, reflected light, cast shadow",
     "Value scales",
@@ -471,7 +471,7 @@
      ],
      "study": [
       "Robo bean: 20 torsos drawn as two boxes, from photos at different angles.",
-      "Find the landmarks (pit of the neck, ribcage, hip bones, knees) on 10 photos — mark them with small x's.",
+      "Find the landmarks (pit of the neck, ribcage, hip bones, knees) on 10 photos and mark them with small x's.",
       "Draw a robo bean from imagination turning in 4 steps, like frames of a slow turn."
      ],
      "assignment": {
@@ -581,7 +581,7 @@
      "videos": [
       {
        "id": "7An0jukOkCI",
-       "note": "Solid drawing — why all this construction matters for animation"
+       "note": "Solid drawing: why all this construction matters for animation"
       },
       {
        "id": "9zE8DqH6Gx4"
@@ -614,7 +614,7 @@
    "n": 3,
    "title": "Perspective, Heads, Hands & Feet",
    "months": "Months 5–6",
-   "tagline": "Put the world and your characters into real space — and tackle the hardest parts of the body.",
+   "tagline": "Put the world and your characters into real space, and tackle the hardest parts of the body.",
    "why": "Animation is drawn from every angle. Perspective lets you build believable backgrounds and turn characters freely, and heads and hands carry most of a character's acting.",
    "focus": [
     "1-, 2- and 3-point perspective",
@@ -691,7 +691,7 @@
      "study": [
       "Draw a tall building looking up (worm's-eye) and looking down from above (bird's-eye).",
       "X-ray drawing: draw 10 objects (chair, table, box, car) with their hidden back edges showing.",
-      "Draw a simple scene — a table with objects on it — from 3 different camera heights."
+      "Draw a simple scene (a table with objects on it) from 3 different camera heights."
      ],
      "assignment": {
       "title": "Worm's-eye + bird's-eye views",
@@ -790,7 +790,7 @@
      ],
      "assignment": {
       "title": "8-view head rotation",
-      "desc": "Upload your head rotation — this is an early turnaround."
+      "desc": "Upload your head rotation. This is an early turnaround."
      }
     },
     {
@@ -840,7 +840,7 @@
       },
       {
        "id": "Azk8n047Nhg",
-       "note": "Animals begin — one session a week from now on"
+       "note": "Animals begin: one session a week from now on"
       }
      ],
      "study": [
@@ -889,8 +889,8 @@
    "n": 4,
    "title": "Composition, Staging & Environments",
    "months": "Months 7–8",
-   "tagline": "Decide what to show and how — put characters into worlds that read instantly.",
-   "why": "In animation, every shot must read in a second or two. Composition and staging are how layout artists and storyboard artists make that happen. Composition isn't about filling the page — it's about deciding what not to draw.",
+   "tagline": "Decide what to show and how, then put characters into worlds that read instantly.",
+   "why": "In animation, every shot must read in a second or two. Composition and staging are how layout artists and storyboard artists make that happen. Composition is deciding what not to draw.",
    "focus": [
     "Thumbnails (small, fast, loose)",
     "Rule of thirds, framing, where the eye goes",
@@ -955,7 +955,7 @@
      ],
      "study": [
       "Take one of last week's winning thumbnails and turn it into a larger 3-value drawing.",
-      "Rule of thirds: draw the same character in a landscape 3 ways — centred, on a third, and tiny in the distance. What does each one feel like?",
+      "Rule of thirds: draw the same character in a landscape 3 ways: centred, on a third, and tiny in the distance. What does each one feel like?",
       "Find 'evenness' in your old drawings (evenly spaced, same-size shapes) and redraw one to fix it."
      ],
      "assignment": {
@@ -967,7 +967,7 @@
      "id": "w27",
      "n": 27,
      "title": "Backgrounds & environments",
-     "goal": "Draw places — interiors, streets and nature — the way background artists do.",
+     "goal": "Draw places (interiors, streets and nature) the way background artists do.",
      "videos": [
       {
        "id": "ZhzdeThllUM"
@@ -982,7 +982,7 @@
       }
      ],
      "study": [
-      "2 on-location environment sketches: one interior, one outdoor/nature (Peter Han takes his class to an arboretum — go to a park or garden).",
+      "2 on-location environment sketches: one interior, one outdoor/nature (Peter Han takes his class to an arboretum, so go to a park or garden).",
       "Study 5 backgrounds from animated films on Film-Grab: draw the big shapes and the value plan only (10 min each).",
       "Draw the same street at 3 depths: foreground, middle ground, background. Use overlap and value to separate them."
      ],
@@ -1080,7 +1080,7 @@
      "videos": [
       {
        "id": "RSK5yGvlPpI",
-       "note": "1-hour lesson — worth it"
+       "note": "1-hour lesson, worth it"
       },
       {
        "id": "awlwTzrlXWY"
@@ -1100,7 +1100,7 @@
      ],
      "study": [
       "Draw a cat, dog and horse as simple forms: ribcage ball, hip ball, neck, head, legs.",
-      "Compare a human leg with a dog's hind leg — they have the same parts, just in different proportions. Draw both side by side.",
+      "Compare a human leg with a dog's hind leg. They have the same parts, just in different proportions. Draw both side by side.",
       "Turn one real animal into a cartoon character: keep the gesture, simplify and exaggerate the shapes."
      ],
      "assignment": {
@@ -1144,8 +1144,8 @@
    "n": 5,
    "title": "Characters for Animation & Film Studies",
    "months": "Months 9–10",
-   "tagline": "Design characters that can act — and learn from the films you love.",
-   "why": "Animated characters must be drawn consistently from every angle and must act through expressions and poses. Studying films closely teaches you how professionals make those decisions. You're no longer just practising — you're studying.",
+   "tagline": "Design characters that can act, and learn from the films you love.",
+   "why": "Animated characters must be drawn consistently from every angle and must act through expressions and poses. Studying films closely teaches you how professionals make those decisions. You're moving from practising to studying.",
    "focus": [
     "Expressions and acting",
     "Shape design and appeal",
@@ -1223,7 +1223,7 @@
       }
      ],
      "study": [
-      "One page each: eyes, noses, mouths — each from 5 angles.",
+      "One page each: eyes, noses, mouths, each from 5 angles.",
       "Draw hair as big shapes first (like a helmet), then break it into clumps. 10 hairstyles.",
       "Draw the same face in 3 styles: realistic, western cartoon, anime."
      ],
@@ -1305,7 +1305,7 @@
      "id": "w37",
      "n": 37,
      "title": "Turnarounds & model sheets",
-     "goal": "Draw the same character consistently from every angle — the core skill of animation.",
+     "goal": "Draw the same character consistently from every angle, the core skill of animation.",
      "videos": [
       {
        "id": "1EPNYWeEf1U",
@@ -1333,7 +1333,7 @@
      "videos": [
       {
        "id": "On85_6d7huw",
-       "note": "Peter Han, week 7 — the plant redesign project"
+       "note": "Peter Han, week 7: the plant redesign project"
       },
       {
        "id": "Eg5BQtqqOCQ",
@@ -1366,7 +1366,7 @@
      ],
      "study": [
       "Roadmap value keys: draw the same scene in high key (mostly light), mid key and low key (mostly dark).",
-      "3 master studies from animated-film stills on Film-Grab. Fill in the Master Study worksheet before each one — the analysis is where the learning happens.",
+      "3 master studies from animated-film stills on Film-Grab. Fill in the Master Study worksheet before each one. The analysis is where the learning happens.",
       "One focus per study: value structure, composition, or what the artist left out."
      ],
      "assignment": {
@@ -1400,8 +1400,8 @@
    "n": 6,
    "title": "Portfolio & the Bridge to Animation",
    "months": "Months 11–12",
-   "tagline": "Bring everything together in one portfolio project — and take your first step into animation.",
-   "why": "This stage isn't about moving on — it's about going deeper. You'll go back to the basics with more awareness and confidence than before, and finish with a portfolio that shows how far you've come.",
+   "tagline": "Bring everything together in one portfolio project, and take your first step into animation.",
+   "why": "This stage is about going deeper. You'll go back to the basics with more awareness and confidence than before, and finish with a portfolio that shows how far you've come.",
    "focus": [
     "Sketching regularly to clarify ideas",
     "Deliberate composition and value choices",
@@ -1411,13 +1411,13 @@
    "ignore": [
     "Thinking the fundamentals are 'behind you'",
     "Overcomplicating strong ideas",
-    "Perfection — finished beats perfect"
+    "Perfection (finished beats perfect)"
    ],
    "roadmap": "Roadmap months 11–12: Sketching + values + composition",
    "daily": {
     "warmup": "Your choice: 15 minutes of whichever drill feels weakest.",
     "gesture": "Line of Action → Figures. 30 sec – 2 min. Push exaggeration.",
-    "sketchbook": "Keep a daily page — collect ideas, people and places for your project."
+    "sketchbook": "Keep a daily page to collect ideas, people and places for your project."
    },
    "weeks": [
     {
@@ -1531,7 +1531,7 @@
      "videos": [
       {
        "id": "SIRilOnnSfg",
-       "note": "Storyboarding with Woody Woodman — long, watch in parts"
+       "note": "Storyboarding with Woody Woodman. Long, so watch it in parts"
       },
       {
        "id": "bh_zB1zf4Hs",
@@ -1586,7 +1586,7 @@
      "study": [
       "Choose your 3 strongest portfolio pieces and redraw them cleanly over the rough (lightbox, window or light pencil).",
       "Use line weight: thicker lines for the outside and for shadows, thinner for inside details.",
-      "Compare the rough and the clean version — did the clean-up keep the energy?"
+      "Compare the rough and the clean version. Did the clean-up keep the energy?"
      ],
      "assignment": {
       "title": "Clean versions of 3 pieces",
@@ -1620,7 +1620,7 @@
      "id": "w48",
      "n": 48,
      "title": "Bridge to animation & final benchmark",
-     "goal": "Make your first animation — and see how far you've come.",
+     "goal": "Make your first animation, and see how far you've come.",
      "videos": [
       {
        "id": "BarOk2p38LQ"
@@ -1663,7 +1663,7 @@
    {
     "id": "turnaround",
     "title": "Character turnaround",
-    "desc": "5 views — front, 3/4, side, 3/4 back, back — with guide lines.",
+    "desc": "5 views (front, 3/4, side, 3/4 back, back) with guide lines.",
     "week": "w42"
    },
    {
@@ -1680,13 +1680,13 @@
    },
    {
     "id": "env1",
-    "title": "Environment — establishing shot",
+    "title": "Environment: establishing shot",
     "desc": "A wide shot of your character's world with a clear value plan.",
     "week": "w44"
    },
    {
     "id": "env2",
-    "title": "Environment — story location",
+    "title": "Environment: story location",
     "desc": "A closer shot where the story happens, with your character at the right scale.",
     "week": "w44"
    },
@@ -1720,7 +1720,7 @@
  },
  "worksheet": {
   "title": "Master study worksheet",
-  "intro": "From the roadmap: fill this in before you draw — the analysis is where the real learning happens. Keep one focus per study.",
+  "intro": "From the roadmap: fill this in before you draw. The analysis is where the real learning happens. Keep one focus per study.",
   "before": [
    {
     "id": "film",
@@ -1781,9 +1781,9 @@
    "use": "Every day"
   },
   {
-   "name": "Peter Han — Dynamic Sketching",
+   "name": "Peter Han: Dynamic Sketching",
    "url": "https://www.youtube.com/playlist?list=PLqR-aNpyEIVd91GCwsyOS3oRn6eoRhyio",
-   "what": "Line control, forms, perspective and design. (A re-upload of the course — links may change.)",
+   "what": "Line control, forms, perspective and design. (A re-upload of the course, so links may change.)",
    "use": "Stages 1–5"
   },
   {
@@ -1801,11 +1801,11 @@
   {
    "name": "Aaron Blaise",
    "url": "https://www.youtube.com/@AaronBlaiseArt",
-   "what": "Former Disney animator — animals, expressions, silhouette and art tips.",
+   "what": "Former Disney animator: animals, expressions, silhouette and art tips.",
    "use": "Stages 1, 3–6"
   },
   {
-   "name": "Alan Becker — 12 Principles of Animation",
+   "name": "Alan Becker: 12 Principles of Animation",
    "url": "https://www.youtube.com/watch?v=uDqjIdI4bF4",
    "what": "Short, clear explanations of the principles of animation.",
    "use": "Weeks 6, 16, 28, 43, 48"
@@ -1819,7 +1819,7 @@
   {
    "name": "Critique communities",
    "url": "https://www.reddit.com/r/learnart/",
-   "what": "r/learnart and r/ArtCrit — post work for feedback every few weeks.",
+   "what": "r/learnart and r/ArtCrit: post work for feedback every few weeks.",
    "use": "Review weeks"
   }
  ]

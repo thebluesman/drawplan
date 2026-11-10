@@ -42,17 +42,14 @@ export function welcome(root, done) {
       <p class="muted">A year of pencil drawing, built towards animation. It runs on this computer, and everything you do stays here.</p>
       <label class="field">What should we call you?<input class="input" id="w-name" autocomplete="given-name" value="${esc(draft.name)}"></label>`,
     () => `
-      <div class="eyebrow">How the year works</div>
       <h2>Six stages, eight weeks each.</h2>
       <div class="w-stages">${cur.stages.map((st) => `<div><span class="dot" style="background:${stageColor(st)}"></span><b>${esc(st.title)}</b><span class="faint small">${esc(st.months)}</span></div>`).join("")}</div>
       <p class="muted">You move on when you finish a week, not when the calendar says so. There are about four spare weeks in the year for holidays, sick days and weeks that need longer.</p>`,
     () => `
-      <div class="eyebrow">A day of drawing</div>
       <h2>About ${cur.hoursPerDay} hours, ${cur.daysPerWeek} days a week.</h2>
       <div class="blocklist">${cur.dailyBlocks.map((b) => `<div class="block"><div class="min">${b.minutes} min</div><div class="what"><b>${esc(b.label)}</b></div></div>`).join("")}</div>
       <div class="note-box">Busy day? Pick a shorter session instead${plans.length > 1 ? `: ${plans.slice(1).map((p) => `<b>${esc(p.label.toLowerCase())}</b> (${fmtMin(planMinutes(p.id))})`).join(" or ")}` : ""}. Every bit of drawing counts, and a day off is part of the plan too.</div>`,
     () => `
-      <div class="eyebrow">Last thing</div>
       <h2>When are you starting?</h2>
       <label class="field">Start date<span class="hint">Only used to show how your pace compares with the plan.</span><input class="input" type="date" id="w-start" value="${esc(draft.startDate)}"></label>
       <label class="toggle"><input type="checkbox" id="w-anime" ${draft.anime ? "checked" : ""}> Show the optional anime lessons</label>
@@ -140,7 +137,7 @@ export function home(root) {
 
   root.innerHTML = `
   <div class="stack" style="gap:24px">
-    <div class="spread"><div><div class="eyebrow">${esc(st.months)} · ${esc(st.title)}</div><h1>${greet}, ${esc(firstName())}.</h1></div>${scheduleNote()}</div>
+    <div class="spread"><div class="stack-s"><h1>${greet}, ${esc(firstName())}.</h1><p class="faint small">${esc(st.months)} · ${esc(st.title)}</p></div>${scheduleNote()}</div>
 
     <div class="card hero">
       <div class="hero-main">
@@ -151,7 +148,7 @@ export function home(root) {
         <div class="row"><a class="btn primary" href="#/week/${w.id}">${pct ? "Continue" : "Start"} ${wkNum(w).toLowerCase()} ${icon("right")}</a><a class="btn" href="#/practice">${icon("practice")} Start today's session</a></div>
       </div>
       <div class="hero-side">
-        <div class="eyebrow">This week</div>
+        <h3>This week</h3>
         <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
           <div><div class="stat" style="padding:0"><div class="v">${tw.days}<span class="faint" style="font-size:18px">/${course.cur.daysPerWeek}</span></div><div class="l">days practised</div></div></div>
           <div><div class="stat" style="padding:0"><div class="v">${(tw.minutes / 60).toFixed(1)}</div><div class="l">hours drawn</div></div></div>
@@ -198,17 +195,16 @@ export function courseView(root) {
   const cw = currentWeek();
   root.innerHTML = `
   <div class="stack" style="gap:20px">
-    <div class="spread"><div><div class="eyebrow">Syllabus</div><h1>${esc(course.cur.subtitle)}</h1></div>
+    <div class="spread"><h1>${esc(course.cur.subtitle)}</h1>
       <div class="ring" style="--p:${overallPct()};width:64px;height:64px" data-label="${overallPct()}%"></div></div>
     <p class="muted" style="max-width:720px">Six stages, eight weeks each. The last week of every stage is a review week with benchmark drawings. 48 weeks of lessons leaves about 4 spare weeks in the year for holidays and sick days.</p>
     ${course.cur.stages.map((st) => `
       <details class="card stage-card" id="${st.id}" ${st.weeks.includes(cw) || location.hash.endsWith("#" + st.id) ? "open" : ""}>
         <summary class="stage-head" style="list-style:none">
-          <div class="rail" style="background:${stageColor(st)}"></div>
           <div class="stack-s">
-            <div class="eyebrow">Stage ${st.n} · ${esc(st.months)}</div>
             <h2>${esc(st.title)}</h2>
             <p class="muted small">${esc(st.tagline)}</p>
+            <p class="faint small">Stage ${st.n} · ${esc(st.months)}</p>
           </div>
           <div class="ring" style="--p:${stagePct(st)};--c:${stageColor(st)}" data-label="${stagePct(st)}%"></div>
         </summary>
@@ -219,6 +215,7 @@ export function courseView(root) {
               <span class="num">${isDone(w) ? icon("check") : w.n}</span>
               <span><div class="t">${esc(w.title)}</div><div class="m">${visibleVideos(w).length} videos · ${w.study.length} exercises${w.benchmark ? " · benchmark" : ""}${w.videos.some((v) => v.anime) && state.settings.anime ? " · anime option" : ""}</div></span>
               <span class="small faint">${w === cw && !isDone(w) ? '<span class="badge accent">Current</span>' : p && !isDone(w) ? p + "%" : ""}</span>
+              <span class="go">${icon("right")}</span>
             </a>`;
           }).join("")}
         </div>
@@ -263,7 +260,7 @@ export function weekView(root, id) {
       const resume = resumeAt(v.id);
       return `<div class="card video-card">
         <button class="thumb ${watched ? "watched" : ""}" data-play="${esc(v.id)}" style="background-image:url('https://i.ytimg.com/vi/${esc(v.id)}/mqdefault.jpg')" aria-label="Play ${esc(meta.title)}">
-          <span class="play"><span>${icon("play")}</span></span><span class="dur">${esc(meta.duration || "")}</span>${vp || watched ? `<span class="vprog"><span style="width:${watched ? 100 : vp}%"></span></span>` : ""}</button>
+          <span class="play"><span>${icon("play")}</span></span>${watched ? `<span class="watched-tag">${icon("check")}Watched</span>` : ""}<span class="dur">${esc(meta.duration || "")}</span>${vp || watched ? `<span class="vprog"><span style="width:${watched ? 100 : vp}%"></span></span>` : ""}</button>
         <div class="video-body">
           <div class="row" style="gap:6px"><span class="small faint">${esc(meta.channel || "")}</span>${v.optional ? '<span class="badge">Optional</span>' : ""}${v.anime ? '<span class="badge anime">Anime</span>' : ""}</div>
           <div class="vt">${esc(meta.title || v.id)}</div>
@@ -431,7 +428,7 @@ export function portfolio(root) {
   }
 
   root.innerHTML = `<div class="stack" style="gap:20px">
-    <div class="spread"><div><div class="eyebrow">Final project · Weeks 41–48</div><h1>Portfolio</h1></div><span class="badge ${doneCount === p.items.length ? "ok" : ""}">${doneCount} of ${p.items.length} pieces</span></div>
+    <div class="spread"><div class="stack-s"><h1>Portfolio</h1><p class="faint small">Final project · Weeks 41–48</p></div><span class="badge ${doneCount === p.items.length ? "ok" : ""}">${doneCount} of ${p.items.length} pieces</span></div>
     <p class="muted" style="max-width:720px">${esc(p.intro)}</p>
     ${p.items.map((it) => {
       const done = itemDone(it);
@@ -472,7 +469,7 @@ export function worksheets(root, id) {
   if (id) return worksheetForm(root, id);
   const list = state.worksheets.slice().reverse();
   root.innerHTML = `<div class="stack" style="gap:20px">
-    <div class="spread"><div><div class="eyebrow">Weeks 39–40 and any time after</div><h1>${esc(ws.title)}</h1></div><button class="btn primary" id="new">${icon("pencil")} New study</button></div>
+    <div class="spread"><div class="stack-s"><h1>${esc(ws.title)}</h1><p class="faint small">Weeks 39–40 and any time after</p></div><button class="btn primary" id="new">${icon("pencil")} New study</button></div>
     <p class="muted" style="max-width:720px">${esc(ws.intro)} Find stills from animated films on <a href="https://film-grab.com" target="_blank" rel="noopener">Film-Grab</a>.</p>
     ${list.length ? `<div class="grid grid-3">${list.map((s) => {
       const img = state.uploads.find((u) => u.kind === "worksheet" && u.slot === s.id);
@@ -522,7 +519,7 @@ function worksheetForm(root, id) {
 // ===================== RESOURCES =====================
 export function resources(root) {
   root.innerHTML = `<div class="stack" style="gap:20px">
-    <div><div class="eyebrow">Everything this course uses</div><h1>Resources</h1></div>
+    <h1>Resources</h1>
     <div class="grid grid-2">${course.cur.resources.map((r) => `<a class="card pad stack-s" href="${esc(r.url)}" target="_blank" rel="noopener" style="text-decoration:none">
       <div class="spread"><h3>${esc(r.name)}</h3>${icon("ext")}</div>
       <p class="muted small">${esc(r.what)}</p><span class="badge" style="align-self:flex-start">${esc(r.use)}</span></a>`).join("")}</div>

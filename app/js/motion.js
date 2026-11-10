@@ -6,15 +6,10 @@ export const reduced = () => calm.matches;
 
 const EASE = "cubic-bezier(.2, .7, .2, 1)"; // fast start, soft landing
 
-/** Fade and lift a page's sections in, one after another. */
+/** Fade a page in as one piece. */
 export function enter(page) {
   if (reduced() || !page) return;
-  const kids = [...(page.children.length === 1 ? page.firstElementChild.children : page.children)].slice(0, 9);
-  kids.forEach((el, i) => {
-    el.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], {
-      duration: 420, delay: i * 45, easing: EASE, fill: "backwards",
-    });
-  });
+  page.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, easing: "ease-out" });
 }
 
 /** Grow progress bars and rings from empty (or from `fromPct`) to their current value. */
@@ -40,7 +35,7 @@ export function pop(el, scale = 1.04) {
 /** Cross-fade content that just changed (e.g. the timer moving to the next block). */
 export function swap(el) {
   if (reduced() || !el) return;
-  el.animate([{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 360, easing: EASE });
+  el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease-out" });
 }
 
 /** Draw an SVG path as if by hand. */
@@ -66,7 +61,7 @@ export function toast(html) {
   el.innerHTML = html;
   el.classList.add("show");
   if (!reduced()) {
-    el.animate([{ opacity: 0, transform: "translate(-50%, 14px) scale(.96)" }, { opacity: 1, transform: "translate(-50%, 0) scale(1)" }], { duration: 380, easing: EASE });
+    el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease-out" });
     pop(el.querySelector("svg"), 1.3);
   }
   clearTimeout(toastTimer);

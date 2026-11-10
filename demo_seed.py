@@ -267,7 +267,7 @@ def build(data_dir, curriculum_path):
         "worksheets": [{
             "id": "ws1", "date": today.isoformat(), "week": "w09",
             "fields": {"film": "A quiet kitchen scene from a hand-drawn film", "focus": "Value structure",
-                       "key": "Mid key, with one bright window", "eye": "The window — it's the lightest value and the only hard edge"},
+                       "key": "Mid key, with one bright window", "eye": "The window. It's the lightest value and the only hard edge"},
         }],
     }
     with open(os.path.join(data_dir, "progress.json"), "w", encoding="utf-8") as f:

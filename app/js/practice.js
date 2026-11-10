@@ -122,7 +122,7 @@ export function practice(root, planArg) {
     if (!el) return;
     const blockPct = finished ? 100 : Math.round((1 - timer.remaining / (b.minutes * 60)) * 1000) / 10;
     el.innerHTML = `
-      <div class="eyebrow">Week ${w.n} · ${esc(w.title)}</div>
+      <div class="faint small">Week ${w.n} · ${esc(w.title)}</div>
       ${!timer.started && plans.length > 1 ? `<div class="plan-pick" role="radiogroup" aria-label="Session length">${plans.map((p) => `<button role="radio" aria-checked="${p.id === timer.plan}" class="${p.id === timer.plan ? "on" : ""}" data-plan="${p.id}">${esc(p.label)}<span>${fmtMin(planMinutes(p.id))}</span></button>`).join("")}</div>
         <p class="plan-desc">${esc(plans.find((p) => p.id === timer.plan)?.desc || "")}</p>` : ""}
       <div class="clock">${finished ? "Done" : clock(timer.remaining)}</div>
@@ -167,7 +167,7 @@ export function practice(root, planArg) {
   const tw = thisWeekStats();
   const recent = state.sessions.slice(-12).reverse();
   root.innerHTML = `<div class="stack" style="gap:20px">
-    <div class="spread"><div><div class="eyebrow">Practice</div><h1>Today's session</h1></div>
+    <div class="spread"><h1>Today's session</h1>
       <span class="badge">${tw.days} of ${course.cur.daysPerWeek} days · ${(tw.minutes / 60).toFixed(1)}h this week</span></div>
     <div class="card timer" id="timer"></div>
     <div class="grid grid-2">

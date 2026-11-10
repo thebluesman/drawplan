@@ -185,15 +185,18 @@ export function lightbox(u, rerender) {
 }
 
 export function kindLabel(u) {
-  if (u.kind === "benchmark") return "Benchmark — " + (course.cur.benchmark.items.find((b) => b.id === u.slot)?.short || u.slot);
-  if (u.kind === "portfolio") return "Portfolio — " + (course.cur.portfolio.items.find((p) => p.id === u.slot)?.title || u.slot);
+  if (u.kind === "benchmark") return "Benchmark · " + (course.cur.benchmark.items.find((b) => b.id === u.slot)?.short || u.slot);
+  if (u.kind === "portfolio") return "Portfolio · " + (course.cur.portfolio.items.find((p) => p.id === u.slot)?.title || u.slot);
   if (u.kind === "assignment") return "Assignment";
   if (u.kind === "worksheet") return "Master study";
   return "Sketchbook";
 }
 
+const shortDate = (d) => (d ? new Date(d + "T00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "");
+const tileCap = (u) => [u.caption, shortDate(u.date)].filter(Boolean).join(" · ");
+
 export const tile = (u) =>
-  `<button class="tile" data-tile="${esc(u.id)}" title="${esc(u.caption || u.date)}"><img loading="lazy" src="${esc(u.url)}" alt="${esc(u.caption || "Drawing")}">${u.star ? '<span class="star">★</span>' : ""}</button>`;
+  `<button class="tile" data-tile="${esc(u.id)}"><img loading="lazy" src="${esc(u.url)}" alt="${esc(u.caption || "Drawing")}">${u.star ? `<span class="star" aria-label="Starred">${icon("star-fill")}</span>` : ""}${tileCap(u) ? `<span class="cap">${esc(tileCap(u))}</span>` : ""}</button>`;
 
 export function bindTiles(root, rerender) {
   root.querySelectorAll("[data-tile]").forEach((el) => {
